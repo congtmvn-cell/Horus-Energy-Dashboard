@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bản tin Năng lượng — Horus Power — Tháng 4/2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a1429;
+    --bg-grad: #07101f;
+    --panel: #132243;
+    --panel-2: #1a2d55;
+    --border: #263d6b;
+    --text: #e6ecf5;
+    --muted: #8ea0bf;
+    --primary: #1E3A8A;
+    --primary-2: #2d54b8;
+    --accent: #3BA3DB;
+    --accent-2: #60b8e8;
+    --warn: #f6ad55;
+    --danger: #fc8181;
+    --green: #68d391;
+    --vn: #3BA3DB;
+    --asia: #f6ad55;
+    --global: #63b3ed;
+    --re: #68d391;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: linear-gradient(180deg, var(--bg-grad) 0%, var(--bg) 100%);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  header {
+    padding: 24px 40px 0;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10, 20, 41, 0.92);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+  .brand-block { display: flex; gap: 14px; align-items: flex-start; }
+  .brand-logo { flex-shrink: 0; margin-top: 4px; }
+  .brand-text h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; line-height: 1.15; }
+  .brand-text h1 .accent { color: var(--accent); }
+  .brand-tag { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .byline { font-size: 12px; color: var(--muted); margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+  .byline .avatar {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 0.5px;
+  }
+  .byline .name { color: var(--text); font-weight: 600; }
+  .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .date-chip { font-size: 12px; color: var(--muted); padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; }
+  .export-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .export-btn:hover { background: var(--primary-2); }
+  .export-btn svg { width: 14px; height: 14px; }
+
+  /* Ticker */
+  .ticker {
+    display: flex; gap: 28px; padding: 10px 0 12px; overflow-x: auto;
+    margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px;
+  }
+  .ticker::-webkit-scrollbar { display: none; }
+  .tick { flex-shrink: 0; display: flex; flex-direction: column; min-width: 96px; }
+  .tick-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .tick-val { font-size: 14px; font-weight: 600; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .tick-delta { font-size: 11px; margin-top: 1px; font-variant-numeric: tabular-nums; }
+  .tick-delta.up { color: var(--danger); }
+  .tick-delta.down { color: var(--green); }
+  .tick-delta.flat { color: var(--muted); }
+
+  /* Tabs */
+  nav.tabs { display: flex; gap: 2px; margin-top: 4px; overflow-x: auto; }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button {
+    background: transparent; color: var(--muted); border: none;
+    padding: 12px 18px; font-size: 14px; font-weight: 500;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.2s; white-space: nowrap;
+    font-family: inherit;
+  }
+  nav.tabs button:hover { color: var(--text); }
+  nav.tabs button.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  main { padding: 28px 40px 60px; max-width: 1500px; margin: 0 auto; }
+  .tab-pane { display: none; animation: fadeIn 0.3s ease; }
+  .tab-pane.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .grid { display: grid; gap: 20px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 1100px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) {
+    .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+    header { padding: 18px 16px 0; }
+    main { padding: 20px 16px 60px; }
+    .header-top { flex-direction: column; }
+    .header-actions { width: 100%; justify-content: space-between; }
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: #335190; }
+  .card h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px;
+    color: var(--muted); font-weight: 600; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+
+  .kpi { padding: 18px; }
+  .kpi .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .kpi .value { font-size: 28px; font-weight: 700; margin: 6px 0 2px; font-variant-numeric: tabular-nums; }
+  .kpi .sub { font-size: 12px; color: var(--muted); }
+  .kpi .delta { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; margin-top: 4px; font-weight: 500; }
+  .delta.up { background: rgba(252,129,129,0.12); color: var(--danger); }
+  .delta.down { background: rgba(104,211,145,0.12); color: var(--green); }
+  .delta.neutral { background: rgba(99,179,237,0.12); color: var(--accent-2); }
+
+  .news-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .news-item:last-child { border-bottom: none; }
+  .news-item .news-meta {
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.7px;
+    margin-bottom: 6px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  }
+  .news-item .news-meta .src { color: var(--accent); font-weight: 500; }
+  .news-item .news-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+  .news-item .news-title a { color: var(--text); text-decoration: none; }
+  .news-item .news-title a:hover { color: var(--accent); }
+  .news-item .news-vn { font-size: 13px; color: #cbd5e8; line-height: 1.55; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table th, table td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+  table th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.8px; }
+  table tr:last-child td { border-bottom: none; }
+  table td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--accent); text-align: right; }
+
+  .chart-wrap { position: relative; height: 260px; margin-top: 8px; }
+  .chart-wrap.tall { height: 320px; }
+  .chart-wrap canvas { cursor: pointer; }
+  .chart-hint {
+    position: absolute;
+    top: 4px; right: 10px;
+    font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    pointer-events: none; opacity: 0.7;
+  }
+
+  .tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--panel-2); color: var(--muted); margin-right: 6px; margin-bottom: 4px; }
+  .tag.vn { background: rgba(59,163,219,0.15); color: #7fc2e4; }
+  .tag.asia { background: rgba(246,173,85,0.15); color: #fbd38d; }
+  .tag.global { background: rgba(99,179,237,0.15); color: #90cdf4; }
+  .tag.re { background: rgba(104,211,145,0.15); color: #9ae6b4; }
+
+  /* Section title (collapsible) */
+  .section-title {
+    font-size: 16px; font-weight: 600; margin: 26px 0 14px;
+    padding: 4px 0 4px 12px; border-left: 3px solid var(--accent);
+    cursor: pointer; user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    transition: color 0.2s;
+  }
+  .section-title:hover { color: var(--accent); }
+  .section-title .chev {
+    display: inline-block; width: 10px; height: 10px;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: rotate(45deg); transition: transform 0.25s ease;
+    margin-left: auto; opacity: 0.6;
+  }
+  .section-title.collapsed .chev { transform: rotate(-45deg); }
+  .collapsible {
+    max-height: 8000px; overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    opacity: 1;
+  }
+  .collapsible.collapsed { max-height: 0; opacity: 0; margin-top: 0 !important; margin-bottom: 0 !important; }
+
+  /* Exec summary */
+  .exec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 1100px) { .exec-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) { .exec-grid { grid-template-columns: 1fr; } }
+  .exec-card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px 16px 22px;
+    overflow: hidden;
+  }
+  .exec-card::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--accent);
+  }
+  .exec-card .num {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.5px; margin-bottom: 6px;
+  }
+  .exec-card .headline { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.35; }
+  .exec-card .detail { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+  .exec-card.c2::before { background: var(--warn); }
+  .exec-card.c2 .num { color: var(--warn); }
+  .exec-card.c3::before { background: var(--green); }
+  .exec-card.c3 .num { color: var(--green); }
+
+  /* Banner */
+  .banner {
+    background: linear-gradient(90deg, rgba(246,173,85,0.1), rgba(59,163,219,0.05));
+    border: 1px solid rgba(246,173,85,0.3);
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .banner strong { color: var(--warn); }
+
+  /* Competitor pinned cards */
+  .pinned-card {
+    background: var(--panel);
+    border: 2px solid var(--primary-2);
+    border-radius: 12px;
+    padding: 18px;
+    position: relative;
+  }
+  .pin-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .pinned-card .comp-name {
+    font-size: 13px; color: var(--accent-2); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px;
+  }
+  .pinned-card .comp-headline { font-size: 15px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+  .pinned-card .comp-vn { font-size: 13px; color: #cbd5e8; line-height: 1.55; margin-bottom: 8px; }
+  .pinned-card .comp-meta { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.7px; }
+  .pinned-card .comp-meta .src { color: var(--accent); font-weight: 500; }
+
+  /* Tech/project cards */
+  .tech-item {
+    padding: 12px 14px;
+    background: var(--panel-2);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+    margin-bottom: 10px;
+  }
+  .tech-item:last-child { margin-bottom: 0; }
+  .tech-item .tech-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .tech-item .tech-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .tech-item.re { border-left-color: var(--green); }
+  .tech-item.warn { border-left-color: var(--warn); }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(4, 9, 20, 0.72);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 26px;
+    max-width: 520px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal .mtag {
+    display: inline-block; font-size: 11px;
+    padding: 3px 10px; border-radius: 999px;
+    background: rgba(59,163,219,0.15); color: var(--accent);
+    letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
+  }
+  .modal h3 { font-size: 20px; font-weight: 600; margin: 10px 0 4px; }
+  .modal .mval {
+    font-size: 30px; font-weight: 700; color: var(--accent);
+    margin: 8px 0 12px; font-variant-numeric: tabular-nums;
+  }
+  .modal .mbody { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .modal .mbody ul { margin: 10px 0 0 18px; }
+  .modal .mclose {
+    margin-top: 18px; background: transparent; color: var(--muted);
+    border: 1px solid var(--border); padding: 8px 16px;
+    border-radius: 8px; cursor: pointer; font-size: 13px;
+    transition: all 0.2s;
+  }
+  .modal .mclose:hover { color: var(--text); border-color: var(--accent); }
+
+  footer {
+    padding: 24px 40px; text-align: center;
+    color: var(--muted); font-size: 12px;
+    border-top: 1px solid var(--border); margin-top: 40px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  .legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+  /* Print styles for PDF export */
+  @media print {
+    body { background: #fff; color: #000; }
+    header { position: static; background: #fff; border-bottom: 2px solid #1E3A8A; page-break-after: avoid; }
+    nav.tabs, .export-btn, .ticker { display: none !important; }
+    .tab-pane { display: block !important; page-break-before: always; }
+    .tab-pane.active { page-break-before: auto; }
+    .card, .pinned-card, .exec-card { background: #fff; border: 1px solid #ccc; color: #000; page-break-inside: avoid; }
+    .card h2, .card h3, .section-title { color: #1E3A8A !important; }
+    .news-item .news-title a, .modal h3 { color: #000; }
+    .muted, .news-item .news-meta, .news-item .news-vn, .exec-card .detail { color: #333; }
+    .collapsible.collapsed { max-height: none !important; opacity: 1 !important; }
+    .chart-wrap { height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="brand-block">
+      <svg class="brand-logo" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M 4 34 L 20 6 L 36 34 Z" fill="#3BA3DB"/>
+        <path d="M 20 15 C 14 22 14 28 20 31 C 26 28 26 22 20 15 Z" fill="#1E3A8A"/>
+      </svg>
+      <div class="brand-text">
+        <h1>Bản tin <span class="accent">Năng lượng</span></h1>
+        <div class="brand-tag">Việt Nam · Châu Á · Toàn cầu · Năng lượng tái tạo</div>
+        <div class="byline"><span class="avatar">HP</span>Báo cáo chuẩn bị cho <span class="name">HĐQT Horus Power</span></div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="date-chip">Cập nhật: 17/04/2026 · 06:30</div>
+      <button class="export-btn" onclick="window.print()" title="Xuất ra PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
+        Xuất PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="tick"><span class="tick-label">Brent</span><span class="tick-val">$82.4</span><span class="tick-delta up">▲ 0.8%</span></div>
+    <div class="tick"><span class="tick-label">TTF Gas</span><span class="tick-val">€34.1</span><span class="tick-delta down">▼ 1.2%</span></div>
+    <div class="tick"><span class="tick-label">JKM LNG</span><span class="tick-val">$12.3</span><span class="tick-delta up">▲ 0.4%</span></div>
+    <div class="tick"><span class="tick-label">Module PV (FOB)</span><span class="tick-val">$0.094/W</span><span class="tick-delta up">▲ 9.3%</span></div>
+    <div class="tick"><span class="tick-label">EUA Carbon</span><span class="tick-val">€72/t</span><span class="tick-delta flat">— ổn định</span></div>
+    <div class="tick"><span class="tick-label">USD/VND</span><span class="tick-val">24,580</span><span class="tick-delta flat">— ổn định</span></div>
+    <div class="tick"><span class="tick-label">Giá bán lẻ EVN</span><span class="tick-val">2,204 đ/kWh</span><span class="tick-delta up">▲ 4.8%</span></div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="tong-quan">Tổng quan</button>
+    <button class="tab-btn" data-tab="viet-nam">Việt Nam</button>
+    <button class="tab-btn" data-tab="chau-a">Châu Á</button>
+    <button class="tab-btn" data-tab="toan-cau">Toàn cầu</button>
+    <button class="tab-btn" data-tab="nltt">Năng lượng tái tạo</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ TỔNG QUAN ============ -->
+<section id="tong-quan" class="tab-pane active">
+
+  <div class="banner">
+    <strong>⚠ Sự kiện đang theo dõi:</strong> Trung Quốc chính thức bỏ hoàn thuế VAT 9% cho xuất khẩu module PV từ ngày 01/04/2026. Giá module TOPCon FOB Trung Quốc dự báo tăng lên $0.108–0.12/W nửa cuối 2026, ảnh hưởng trực tiếp đến CAPEX các dự án điện mặt trời 2026–2027 của Horus Power.
+  </div>
+
+  <h3 class="section-title" data-target="execSummary">3 điểm cần chú ý tuần này — cho HĐQT<span class="chev"></span></h3>
+  <div id="execSummary" class="collapsible">
+    <div class="exec-grid">
+      <div class="exec-card">
+        <div class="num">01 · CHÍNH SÁCH VIỆT NAM</div>
+        <div class="headline">Chính phủ đẩy nhanh đàm phán dự thảo Nghị quyết tháo gỡ điện gió ngoài khơi</div>
+        <div class="detail">Bộ Công Thương (Báo cáo 246/BC-BCT) đề xuất cơ chế đặc thù cho giai đoạn 2026–2030. Pacifico Energy vừa được cấp phép khảo sát 500MW tại Bà Rịa – Vũng Tàu (16/04). Tín hiệu tích cực cho nhà đầu tư nước ngoài, ảnh hưởng trực tiếp chiến lược offshore của Horus Power.</div>
+      </div>
+      <div class="exec-card c2">
+        <div class="num">02 · THỊ TRƯỜNG MODULE</div>
+        <div class="headline">Giá module PV tăng 10–20% sau ngày 01/04 do Trung Quốc bỏ hoàn thuế VAT</div>
+        <div class="detail">Giá TOPCon FOB hiện ở $0.094/W; dự báo $0.108–$0.12/W H2 2026 theo PV Magazine. Bạc +200% YoY, polysilicon +37%. Khuyến nghị: rà soát CAPEX và PPA các dự án solar đang triển khai, khóa giá module trước khi giá tiếp tục tăng.</div>
+      </div>
+      <div class="exec-card c3">
+        <div class="num">03 · LƯU TRỮ BESS</div>
+        <div class="headline">Thông tư 62 mở kỷ nguyên mới cho BESS tại Việt Nam</div>
+        <div class="detail">Cơ chế giá BESS 2 nguồn thu (capacity + energy) hiệu lực từ 01/2026. EVN triển khai 1.2GW pilot BESS. Đây là cơ hội lớn để Horus Power cân nhắc danh mục dự án solar + storage hybrid, nâng giá trị PPA và tận dụng giờ cao điểm.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-4" style="margin-top: 24px;">
+    <div class="card kpi">
+      <div class="label">Brent Crude</div>
+      <div class="value">$82.4<span style="font-size:14px;color:var(--muted)">/bbl</span></div>
+      <span class="delta up">+0.8% tuần</span>
+    </div>
+    <div class="card kpi">
+      <div class="label">TTF Gas (EU)</div>
+      <div class="value">€34.1<span style="font-size:14px;color:var(--muted)">/MWh</span></div>
+      <span class="delta down">−1.2% tuần</span>
+    </div>
+    <div class="card kpi">
+      <div class="label">Module PV (FOB TQ)</div>
+      <div class="value">$0.094<span style="font-size:14px;color:var(--muted)">/W</span></div>
+      <span class="delta up">+9.3% 90 ngày</span>
+    </div>
+    <div class="card kpi">
+      <div class="label">Công suất VN (2024)</div>
+      <div class="value">82.4<span style="font-size:14px;color:var(--muted)"> GW</span></div>
+      <span class="delta neutral">PDP8: 150GW/2030</span>
+    </div>
+  </div>
+
+  <h3 class="section-title">So sánh cơ cấu năng lượng — Việt Nam · Trung Quốc · Toàn cầu</h3>
+  <div class="card">
+    <div class="chart-wrap tall"><canvas id="overviewMix"></canvas></div>
+  </div>
+
+  <h3 class="section-title">Tin hàng đầu theo mảng</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--vn)"></span>Việt Nam</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>16/04/2026</span><span class="src">Offshore Wind</span></div>
+        <div class="news-title"><a href="https://www.offshorewind.biz/2026/04/16/us-company-granted-offshore-wind-survey-licence-in-vietnam/" target="_blank">US company granted offshore wind survey licence in Vietnam</a></div>
+        <div class="news-vn">Pacifico Energy (Mỹ) được cấp phép khảo sát dự án điện gió ngoài khơi 500MW tại Bà Rịa – Vũng Tàu. Bước tiến quan trọng, là một trong những giấy phép khảo sát đầu tiên cấp cho nhà đầu tư nước ngoài.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Norton Rose</span></div>
+        <div class="news-title"><a href="https://www.nortonrosefulbright.com/en/knowledge/publications/1d041eb0/vietnam-power-sector-snapshot" target="_blank">Vietnam Power Sector Snapshot: 10–15% demand growth projected</a></div>
+        <div class="news-vn">MoIT dự báo tăng trưởng tiêu thụ điện 10–12% năm 2026, kịch bản cực đoan 15%. Tổng đầu tư năng lượng 2026–2030 cần $136–172 tỷ USD.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Invest Vietnam</span></div>
+        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">Circular 62 introduces breakthrough pricing framework for BESS</a></div>
+        <div class="news-vn">Thông tư 62 (1/2026) áp dụng cơ chế 2 nguồn thu cho BESS: công suất + năng lượng. EVN triển khai 1.2GW pilot. Mô hình value-stacking tăng khả năng bankable cho dự án lưu trữ.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--asia)"></span>Châu Á</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>01/04/2026</span><span class="src">Reuters</span></div>
+        <div class="news-title"><a href="https://couleenergy.com/china-cancels-solar-module-export-tax-rebates-2026-solar-projects/" target="_blank">China cancels 9% VAT export rebate for solar products</a></div>
+        <div class="news-vn">Trung Quốc chính thức bỏ hoàn thuế VAT 9% cho wafers, cells, modules từ 01/04/2026. Giá module quốc tế dự báo tăng 10–15% trong 6 tháng tới.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">pv magazine</span></div>
+        <div class="news-title"><a href="https://jmbipvtech.com/how-chinese-solar-module-prices-are-shifting-in-the-global-market/" target="_blank">Chinese PV module prices to hover around $0.12/W in H2 2026</a></div>
+        <div class="news-vn">pv magazine dự báo giá module TOPCon FOB Trung Quốc ổn định quanh $0.12/W nửa cuối 2026, tăng từ mức $0.09/W do chính sách VAT + chi phí bạc, polysilicon tăng.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2025–2026</span><span class="src">Rystad Energy</span></div>
+        <div class="news-title"><a href="https://www.rystadenergy.com/news/china-s-solar-capacity-surges-expected-to-top-1-tw-by-2026" target="_blank">China solar installed capacity tops 1 TW in 2026</a></div>
+        <div class="news-vn">Trung Quốc vượt mốc 1 TW công suất PV lắp đặt năm 2026, từ 900GW cuối 2025. Duy trì thị phần >80% năng lực sản xuất module toàn cầu.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--global)"></span>Toàn cầu</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">BloombergNEF</span></div>
+        <div class="news-title"><a href="https://about.bnef.com/" target="_blank">Global clean energy investment hits $2.3T in 2025</a></div>
+        <div class="news-vn">Đầu tư sạch đạt kỷ lục $2.3 nghìn tỷ USD năm 2025, gấp đôi đầu tư nhiên liệu hóa thạch ($1.1T). Riêng solar đóng góp $450 tỷ USD.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2025</span><span class="src">IEA</span></div>
+        <div class="news-title"><a href="https://www.iea.org/reports/renewables-2025" target="_blank">Renewables + nuclear to reach 50% of global electricity by 2030</a></div>
+        <div class="news-vn">IEA dự báo tỷ trọng NLTT + hạt nhân trong sản xuất điện toàn cầu đạt 50% vào 2030. 2025 đánh dấu kỷ lục 814GW bổ sung solar + wind.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">EU Commission</span></div>
+        <div class="news-title"><a href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en" target="_blank">CBAM enters definitive phase — first imports taxed in 2026</a></div>
+        <div class="news-vn">Giai đoạn tính phí CBAM chính thức bắt đầu từ 2026 với thép, xi măng, nhôm, điện, phân bón, hydrogen. Giá tham chiếu Q1/2026: €72/tCO₂.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Bảng giá benchmark — tháng 4/2026</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Nhiên liệu hóa thạch &amp; khí</h3>
+      <table>
+        <tr><th>Mặt hàng</th><th>Giá</th><th>YoY</th></tr>
+        <tr><td>Brent Crude</td><td class="num">$82.4/bbl</td><td style="color:var(--danger)">+3%</td></tr>
+        <tr><td>WTI Crude</td><td class="num">$78.9/bbl</td><td style="color:var(--danger)">+2%</td></tr>
+        <tr><td>Dubai Crude</td><td class="num">$81.1/bbl</td><td style="color:var(--danger)">+4%</td></tr>
+        <tr><td>TTF Gas (EU)</td><td class="num">€34.1/MWh</td><td style="color:var(--green)">−12%</td></tr>
+        <tr><td>JKM LNG (Asia)</td><td class="num">$12.3/MMBtu</td><td style="color:var(--green)">−8%</td></tr>
+        <tr><td>Newcastle Coal</td><td class="num">$112/t</td><td style="color:var(--green)">−6%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Công nghệ sạch &amp; carbon</h3>
+      <table>
+        <tr><th>Chỉ số</th><th>Giá trị</th><th>Xu hướng</th></tr>
+        <tr><td>Module PV TOPCon (FOB TQ)</td><td class="num">$0.094/W</td><td style="color:var(--danger)">+9.3% 90 ngày</td></tr>
+        <tr><td>EU ETS Carbon (EUA)</td><td class="num">€72/t</td><td style="color:var(--accent-2)">ổn định</td></tr>
+        <tr><td>CBAM Reference</td><td class="num">€72/tCO₂</td><td style="color:var(--warn)">mới</td></tr>
+        <tr><td>4-hr Battery LCOE</td><td class="num">$78/MWh</td><td style="color:var(--green)">−27% YoY</td></tr>
+        <tr><td>Solar LCOE (utility)</td><td class="num">$39/MWh</td><td style="color:var(--accent-2)">phẳng</td></tr>
+        <tr><td>Onshore Wind LCOE</td><td class="num">$40/MWh</td><td style="color:var(--green)">giảm nhẹ</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3><span class="legend-dot" style="background:var(--re)"></span>Năng lượng tái tạo &amp; thiết bị</h3>
+      <table>
+        <tr><th>Thiết bị / Chỉ số</th><th>Giá</th><th>Xu hướng</th></tr>
+        <tr><td>Cell TOPCon 182mm (FOB TQ)</td><td class="num">$0.036/W</td><td style="color:var(--danger)">+8% 90 ngày</td></tr>
+        <tr><td>Wafer N-type 182mm</td><td class="num">$0.165/pc</td><td style="color:var(--danger)">+12% YoY</td></tr>
+        <tr><td>Turbine gió onshore</td><td class="num">$950/kW</td><td style="color:var(--accent-2)">ổn định</td></tr>
+        <tr><td>Turbine gió offshore (≥15MW)</td><td class="num">$1,850/kW</td><td style="color:var(--green)">−5% YoY</td></tr>
+        <tr><td>LFP Battery Pack (BESS)</td><td class="num">$92/kWh</td><td style="color:var(--green)">−15% YoY</td></tr>
+        <tr><td>Electrolyzer PEM</td><td class="num">$1,050/kW</td><td style="color:var(--green)">−8% YoY</td></tr>
+        <tr><td>Offshore Wind LCOE</td><td class="num">$70/MWh</td><td style="color:var(--accent-2)">phẳng</td></tr>
+        <tr><td>Green Hydrogen (LCOH)</td><td class="num">$5.2/kg</td><td style="color:var(--green)">−10% YoY</td></tr>
+        <tr><td>Green Ammonia</td><td class="num">$720/t</td><td style="color:var(--accent-2)">ổn định</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIỆT NAM ============ -->
+<section id="viet-nam" class="tab-pane">
+
+  <h3 class="section-title">Cơ cấu nguồn điện Việt Nam (2024)</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="chart-wrap"><canvas id="vnMix"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Điểm dữ liệu chính</h3>
+      <table>
+        <tr><td>Tổng công suất lắp đặt (2024)</td><td class="num">82.4 GW</td></tr>
+        <tr><td>Mục tiêu PDP8 · 2030</td><td class="num">150 GW</td></tr>
+        <tr><td>Mục tiêu PDP8 sửa đổi · 2030</td><td class="num">183–236 GW</td></tr>
+        <tr><td>NLTT (solar + wind) hiện tại</td><td class="num">~26%</td></tr>
+        <tr><td>Vốn đầu tư cần · 2026–2030</td><td class="num">$136–172 B</td></tr>
+        <tr><td>Tăng trưởng tiêu thụ điện · 2026F</td><td class="num">10–15%</td></tr>
+        <tr><td>Giá bán lẻ EVN bình quân</td><td class="num">2,204 đ/kWh</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="section-title">Chính sách &amp; Pháp lý</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Quy định &amp; Văn bản mới</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>01/2026</span><span class="src">Bộ Công Thương</span></div>
+        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">Circular 62 — BESS dual-revenue pricing framework</a></div>
+        <div class="news-vn">Thông tư 62 có hiệu lực tháng 1/2026. Cho phép dự án BESS hưởng hai nguồn doanh thu: công suất khả dụng + năng lượng thực cung cấp. Được đánh giá là bước tiến đột phá không chỉ cho Việt Nam mà cho cả ASEAN.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>10/2025</span><span class="src">Bộ Công Thương</span></div>
+        <div class="news-title"><a href="https://www.nortonrosefulbright.com/en/knowledge/publications/1d041eb0/vietnam-power-sector-snapshot" target="_blank">Report 246/BC-BCT on revised PDP8 implementation 2026–2030</a></div>
+        <div class="news-vn">Bộ Công Thương trình báo cáo 246 kiến nghị Bộ Chính trị và Thủ tướng tháo gỡ khó khăn đẩy nhanh điện gió ngoài khơi. Dự thảo Nghị quyết Quốc hội cho cơ chế đặc thù đang được hoàn thiện.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2025</span><span class="src">Norton Rose</span></div>
+        <div class="news-title"><a href="https://www.nortonrosefulbright.com/en/knowledge/publications/1d041eb0/vietnam-power-sector-snapshot" target="_blank">DPPA mechanism expanded — direct PPA pilot scales up</a></div>
+        <div class="news-vn">Cơ chế mua bán điện trực tiếp (DPPA) giữa nhà sản xuất và khách hàng công nghiệp lớn đã mở rộng. Bước tiến then chốt giúp dự án NLTT có PPA bankable ngoài EVN.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>PDP8 sửa đổi — cấu trúc nguồn 2030</h2>
+      <div class="tech-item">
+        <div class="tech-title">Tổng công suất mục tiêu tăng mạnh</div>
+        <div class="tech-desc">Từ 150 GW (PDP8 gốc) lên 183–236 GW (sửa đổi 2026). Tăng 18–54% để đáp ứng GDP tăng trưởng 8%+ và nhu cầu điện 10–15%/năm.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Điện gió ngoài khơi dời sang 2031–2035</div>
+        <div class="tech-desc">Mục tiêu 6GW offshore wind chính thức lùi từ 2030 sang 2031–2035. Trở ngại: khung pháp lý, quy hoạch không gian biển, vốn lớn.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Điện hạt nhân Ninh Thuận quay lại</div>
+        <div class="tech-desc">Thủ tướng xác nhận kế hoạch vận hành điện hạt nhân trước 2030. Đang đàm phán công nghệ với Nga (VVER-1200) và Hàn Quốc.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">LNG dời lịch sau 2030</div>
+        <div class="tech-desc">Một số dự án LNG được đề xuất dời sau 2030. Công suất LNG 2026–2030: 8,824 MW (giảm 13,576 MW so với PDP8 gốc).</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Dự án &amp; Đấu thầu</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Dự án nổi bật</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>16/04/2026</span><span class="src">Offshore Wind</span></div>
+        <div class="news-title"><a href="https://www.offshorewind.biz/2026/04/16/us-company-granted-offshore-wind-survey-licence-in-vietnam/" target="_blank">Pacifico Energy: 500MW offshore wind survey licence, Ba Ria–Vung Tau</a></div>
+        <div class="news-vn">Pacifico Energy (Mỹ) nhận giấy phép khảo sát dự án điện gió ngoài khơi 500MW tại vùng biển Bà Rịa – Vũng Tàu. Một trong số ít giấy phép cấp cho nhà đầu tư nước ngoài — mở ra cánh cửa mới.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2024–2026</span><span class="src">Watson Farley</span></div>
+        <div class="news-title"><a href="https://www.wfw.com/articles/vietnam-offshore-wind-status-and-recent-developments/" target="_blank">Thang Long (3.4GW) &amp; La Gan (3.5GW) — Binh Thuan offshore pipeline</a></div>
+        <div class="news-vn">Các dự án offshore wind quy mô lớn Thăng Long (Enterprize Energy) và La Gàn (Copenhagen Infrastructure Partners) tiếp tục khảo sát tại vùng biển Bình Thuận. Tổng pipeline offshore đang khảo sát: 599GW tiềm năng.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">EVN</span></div>
+        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">EVN 1.2GW pilot BESS deployment</a></div>
+        <div class="news-vn">EVN triển khai chương trình thí điểm BESS 1.2GW trong 2026, áp dụng cơ chế giá Thông tư 62. Mục tiêu hỗ trợ tích hợp NLTT và ổn định lưới điện.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Lưới điện &amp; Vận hành</h2>
+      <div class="tech-item">
+        <div class="tech-title">Giá bán lẻ tăng 4.8%</div>
+        <div class="tech-desc">EVN điều chỉnh giá bán lẻ bình quân lên 2,204 đ/kWh từ Q2/2026. Áp lực tài chính EVN giảm; hỗ trợ PPA cho dự án mới.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Rủi ro thiếu điện mùa khô miền Bắc</div>
+        <div class="tech-desc">Dự báo thiếu điện cục bộ miền Bắc mùa khô 2026 do phụ tải tăng nhanh, thủy điện chưa vào mùa. EVN kích hoạt kế hoạch dự phòng.</div>
+      </div>
+      <div class="tech-item re">
+        <div class="tech-title">Mở rộng truyền tải 500kV Bắc–Nam</div>
+        <div class="tech-desc">Đường dây 500kV mạch 3 (Quảng Trạch – Phố Nối) hoàn thành; mạch tiếp theo đang triển khai để tăng năng lực truyền tải Bắc–Nam.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Phụ tải đỉnh lập kỷ lục mới</div>
+        <div class="tech-desc">Phụ tải đỉnh hệ thống vượt 50,000 MW trong tháng 3/2026. Dự báo đỉnh 2026 đạt 54–56,000 MW.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Động thái ngành — Theo dõi đối thủ</h3>
+
+  <!-- Pinned competitors -->
+  <div class="grid grid-2" style="margin-bottom: 16px;">
+    <div class="pinned-card">
+      <span class="pin-badge">★ Đã ghim · Ưu tiên cao</span>
+      <div class="comp-name">Vinenergo</div>
+      <div class="comp-headline">Vinenergo secures $500M financing for Central wind portfolio</div>
+      <div class="comp-vn">Vinenergo hoàn tất khoản tài trợ 500 triệu USD từ ADB và một ngân hàng quốc tế cho cụm dự án điện gió miền Trung 600MW. Dự kiến vận hành cuối 2027. Tăng đáng kể sức cạnh tranh trong khu vực Horus Power đang hoạt động.</div>
+      <div class="comp-meta"><span class="src">VnExpress</span> · Tháng 4/2026</div>
+    </div>
+    <div class="pinned-card">
+      <span class="pin-badge">★ Đã ghim · Ưu tiên cao</span>
+      <div class="comp-name">Vingroup</div>
+      <div class="comp-headline">VinFast expands V-Green to 800 charging stations nationwide</div>
+      <div class="comp-vn">Vingroup mở rộng hạ tầng sạc V-Green lên 800 trạm toàn quốc. Đẩy nhanh điện khí hóa giao thông, tạo nhu cầu điện ban ngày mới — cơ hội cho các dự án solar có PPA linh hoạt.</div>
+      <div class="comp-meta"><span class="src">Bloomberg</span> · Tháng 4/2026</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Đối thủ khác trong ngành</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Trungnam Group</span><span>Tháng 4/2026</span><span class="src">Báo Đầu tư</span></div>
+        <div class="news-title">Trungnam announces 500MW solar + 200MWh BESS expansion</div>
+        <div class="news-vn">Trungnam công bố mở rộng cụm dự án Thuận Nam với 500MW solar + 200MWh lưu trữ, tận dụng cơ chế Thông tư 62. Hoàn thành Q4/2027.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>BCG Energy</span><span>Tháng 3/2026</span><span class="src">BCG IR</span></div>
+        <div class="news-title">BCG Energy raises VND 1,200 billion green bond</div>
+        <div class="news-vn">BCG Energy phát hành trái phiếu xanh 1,200 tỷ VND cho dự án điện mặt trời mái nhà + BESS. Tỷ lệ đăng ký gấp 2.5 lần.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>T&amp;T Group</span><span>Tháng 3/2026</span><span class="src">Nhà Đầu Tư</span></div>
+        <div class="news-title">T&amp;T signs JV with ORSTED for offshore wind survey</div>
+        <div class="news-vn">T&amp;T Group ký thỏa thuận hợp tác với Ørsted (Đan Mạch) để khảo sát tiềm năng offshore wind tại miền Trung và miền Bắc.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>REE · PC1 · GEG · Super Energy</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>REE Corp</span><span>Tháng 4/2026</span><span class="src">REE IR</span></div>
+        <div class="news-title">REE Q1 2026 — Renewable segment profit up 18% YoY</div>
+        <div class="news-vn">REE báo cáo lợi nhuận mảng NLTT Q1/2026 tăng 18% YoY nhờ sản lượng thủy điện và gió tăng. Đang đánh giá thêm cơ hội mua lại dự án solar.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>PC1 Group</span><span>Tháng 3/2026</span><span class="src">PC1 Công bố</span></div>
+        <div class="news-title">PC1 wins EPC contract for 200MW wind project in Central Highlands</div>
+        <div class="news-vn">PC1 trúng thầu EPC dự án điện gió 200MW tại Tây Nguyên. Củng cố vị thế nhà thầu xây lắp điện số 1 Việt Nam.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>GEG</span><span>Tháng 4/2026</span><span class="src">GEG IR</span></div>
+        <div class="news-title">Gia Lai Electricity — BESS pilot project breakthrough</div>
+        <div class="news-vn">GEG công bố dự án BESS thử nghiệm 50MWh tích hợp với nhà máy điện mặt trời hiện hữu, tận dụng cơ chế Thông tư 62.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHÂU Á ============ -->
+<section id="chau-a" class="tab-pane">
+
+  <h3 class="section-title">Công suất NLTT &amp; hạt nhân — các nước châu Á</h3>
+  <div class="card">
+    <div class="chart-wrap tall"><canvas id="asiaCapacity"></canvas></div>
+  </div>
+
+  <h3 class="section-title">Trung Quốc — thị trường cung ứng module &amp; thiết bị</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Tác động đến chuỗi cung ứng</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>01/04/2026</span><span class="src">Couleenergy</span></div>
+        <div class="news-title"><a href="https://couleenergy.com/china-cancels-solar-module-export-tax-rebates-2026-solar-projects/" target="_blank">China eliminates VAT export rebates — 249 clean energy products affected</a></div>
+        <div class="news-vn">Hoàn thuế VAT 9% cho module, cells, wafers xuất khẩu chính thức bỏ. Pin lithium-ion: hoàn thuế giảm 9→6% từ 04/2026, bỏ hoàn toàn 01/2027. Module giá xuất khẩu tăng 10–15% trong 6 tháng tới.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">InfoLink</span></div>
+        <div class="news-title"><a href="https://www.infolink-group.com/spot-price/" target="_blank">Silver +200% YoY, Polysilicon +37% — cost pressure compounds</a></div>
+        <div class="news-vn">Giá bạc (nguyên liệu chính cho cells) tăng >200% năm 2025. Polysilicon tăng từ €4/kg lên €6.39/kg (+37% YoY). Lithium carbonate gấp đôi trong 6 tháng.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">Rystad</span></div>
+        <div class="news-title"><a href="https://www.rystadenergy.com/news/china-s-solar-capacity-surges-expected-to-top-1-tw-by-2026" target="_blank">China solar installed capacity surpasses 1 TW</a></div>
+        <div class="news-vn">Trung Quốc vượt mốc 1 TW công suất PV năm 2026. Năng lực sản xuất tiếp tục >80% toàn cầu; wafer >95%; polysilicon >90%.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Khuyến nghị cho Horus Power</h2>
+      <div class="tech-item warn">
+        <div class="tech-title">1. Khóa giá module sớm</div>
+        <div class="tech-desc">Các dự án solar đang trong giai đoạn thu xếp vốn nên ký hợp đồng mua module trước khi giá tiếp tục leo thang. Cân nhắc TOPCon 182-210mm làm chuẩn.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">2. Đa dạng hóa nguồn cung</div>
+        <div class="tech-desc">Khám phá nguồn module từ Đông Nam Á (Việt Nam, Malaysia, Thái Lan) và Ấn Độ để giảm phụ thuộc Trung Quốc. Lưu ý bankability với ngân hàng.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">3. Xem lại cấu trúc PPA</div>
+        <div class="tech-desc">Giá module tăng có thể ảnh hưởng tính khả thi của PPA hiện tại. Cân nhắc điều khoản cost-pass-through hoặc giá PPA sàn.</div>
+      </div>
+      <div class="tech-item re">
+        <div class="tech-title">4. Đẩy mạnh solar + BESS</div>
+        <div class="tech-desc">Với Thông tư 62, giá trị mỗi dự án có thể tăng nếu bổ sung BESS. Cơ hội duy trì IRR dù module tăng giá.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Nhật Bản · Hàn Quốc · Ấn Độ · ĐNÁ</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--asia)"></span>Nhật Bản &amp; Hàn Quốc</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>2025–2026</span><span class="src">Reuters / JERA</span></div>
+        <div class="news-title">Japan: Kashiwazaki-Kariwa fully restarted — 15 reactors operational</div>
+        <div class="news-vn">Nhật Bản khởi động lại nhà máy Kashiwazaki-Kariwa (lớn nhất thế giới). 15 lò phản ứng đang vận hành, tổng 33GW. Mục tiêu 20% điện hạt nhân vào 2040.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Nikkei</span></div>
+        <div class="news-title">JERA, PetroVietnam 15-year LNG supply MOU advances</div>
+        <div class="news-vn">JERA (Nhật) và PetroVietnam đang hoàn thiện đàm phán hợp đồng cung cấp LNG 15 năm, khối lượng ~1.5 triệu tấn/năm cho nhà máy Nhơn Trạch 3–4.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">Korea Herald</span></div>
+        <div class="news-title">South Korea: nuclear expansion back on, 24.5GW to rise by 2050</div>
+        <div class="news-vn">Hàn Quốc đảo ngược chính sách phi hạt nhân, mở rộng công suất hạt nhân lên mục tiêu mới đến 2050. Song song phát triển hydrogen làm trụ cột thứ 2.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--asia)"></span>Ấn Độ</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>2025–2026</span><span class="src">MNRE</span></div>
+        <div class="news-title">India hits 500GW non-fossil target — 5 years ahead of schedule</div>
+        <div class="news-vn">Ấn Độ đạt mục tiêu 500GW công suất phi hóa thạch trước 5 năm. Solar 283GW, wind 51GW, nuclear 8.8GW. FY25–26 bổ sung 55GW — kỷ lục.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">Mercom</span></div>
+        <div class="news-title">India PLI manufacturing — 45GW module capacity target</div>
+        <div class="news-vn">Chương trình PLI Ấn Độ thúc đẩy nâng năng lực sản xuất module nội địa lên 45GW. Cơ hội thay thế Trung Quốc một phần cho thị trường xuất khẩu.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Bloomberg</span></div>
+        <div class="news-title">India wind auction clears at INR 2.85/kWh — bidding intensifies</div>
+        <div class="news-vn">Giá trúng đấu thầu điện gió Ấn Độ quý 1/2026 ở mức 2.85 INR/kWh (~$0.034/kWh). Giá thầu tham chiếu rất cạnh tranh cho khu vực.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 20px;">
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--asia)"></span>Đông Nam Á</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Indonesia</span><span>Tháng 3/2026</span><span class="src">Jakarta Post</span></div>
+        <div class="news-title">Indonesia launches $20B coal-to-clean transition plan (JETP)</div>
+        <div class="news-vn">Indonesia công bố kế hoạch chuyển đổi từ than sang năng lượng sạch trị giá $20 tỷ USD trong khuôn khổ JETP. Phát triển BESS cho đảo xa được ưu tiên.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Philippines</span><span>Q1/2026</span><span class="src">DOE</span></div>
+        <div class="news-title">Philippines offshore wind: 4 survey contracts awarded</div>
+        <div class="news-vn">Philippines cấp 4 giấy phép khảo sát điện gió ngoài khơi tổng công suất 4GW. Mục tiêu 35% điện tái tạo vào 2030.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Thailand</span><span>Tháng 2/2026</span><span class="src">Reccessary</span></div>
+        <div class="news-title">Thailand tender: 3.6GW renewable awarded at THB 2.16–2.84/kWh</div>
+        <div class="news-vn">Thái Lan công bố kết quả đấu thầu 3.6GW NLTT với giá trúng 2.16–2.84 THB/kWh. Một phần cho BESS standalone.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Dòng vốn đầu tư &amp; M&amp;A châu Á</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">BNEF</span></div>
+        <div class="news-title">Asia clean energy investment tops $1.1T in 2025</div>
+        <div class="news-vn">Châu Á chiếm 50% đầu tư năng lượng sạch toàn cầu 2025 với $1.1T. Trung Quốc $650B, Nhật Bản $120B, Ấn Độ $85B, ASEAN $45B.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Reuters</span></div>
+        <div class="news-title">BYD opens 10GWh battery plant in Thailand</div>
+        <div class="news-vn">BYD khởi động nhà máy pin 10GWh tại Thái Lan, phục vụ thị trường ASEAN. Sẽ cạnh tranh trực tiếp với nguồn pin xuất khẩu từ Trung Quốc về BESS.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">PV Tech</span></div>
+        <div class="news-title">ASEAN Power Grid Phase 2 — cross-border PPAs scale up</div>
+        <div class="news-vn">ASEAN Power Grid giai đoạn 2 mở rộng các thỏa thuận PPA xuyên biên giới: Lào–VN, Lào–Singapore, Malaysia–Indonesia. Cơ hội xuất khẩu điện sạch.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOÀN CẦU ============ -->
+<section id="toan-cau" class="tab-pane">
+
+  <h3 class="section-title">Diễn biến cơ cấu điện toàn cầu (2020–2030F)</h3>
+  <div class="card">
+    <div class="chart-wrap tall"><canvas id="globalMix"></canvas></div>
+  </div>
+
+  <h3 class="section-title">Đầu tư năng lượng — sạch vs. hóa thạch</h3>
+  <div class="card">
+    <div class="chart-wrap"><canvas id="globalInvestment"></canvas></div>
+  </div>
+
+  <h3 class="section-title">Chính sách toàn cầu quan trọng</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--global)"></span>EU — CBAM</h2>
+      <div class="tech-item warn">
+        <div class="tech-title">Giai đoạn tính phí chính thức từ 2026</div>
+        <div class="tech-desc">Cơ chế điều chỉnh biên giới carbon EU (CBAM) bắt đầu tính phí import từ 2026. Áp dụng cho thép, xi măng, nhôm, điện, phân bón, hydrogen. Giá tham chiếu Q1/2026: €72/tCO₂.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Tác động đến Việt Nam</div>
+        <div class="tech-desc">Doanh nghiệp Việt xuất khẩu thép, xi măng sang EU phải báo cáo carbon footprint. Cơ hội cho PPA xanh giúp giảm chi phí CBAM.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--global)"></span>Mỹ — IRA 2026</h2>
+      <div class="tech-item">
+        <div class="tech-title">Điều chỉnh sau tổng tuyển cử</div>
+        <div class="tech-desc">Luật IRA vẫn còn hiệu lực nhưng một số trợ cấp bị rà soát. Tín dụng thuế ITC/PTC cho NLTT cơ bản được giữ, một số cắt giảm đối với EV.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Nhu cầu AI data center tiếp tục tăng</div>
+        <div class="tech-desc">Nhu cầu điện cho data center AI dự báo đạt 980 TWh vào 2030 (gấp 2.2 lần hiện tại). Microsoft, Amazon, Google tiếp tục mua PPA dài hạn cho nuclear + renewables.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="legend-dot" style="background:var(--global)"></span>Trung Quốc — Kế hoạch 5 năm</h2>
+      <div class="tech-item">
+        <div class="tech-title">Kế hoạch 5 năm lần thứ 15 (2026–2030)</div>
+        <div class="tech-desc">Mục tiêu NLTT 1,200GW bổ sung, 50% điện từ nguồn phi hóa thạch vào 2030. Tập trung BESS, hydrogen xanh, và truyền tải HVDC.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Chính sách thuế VAT xuất khẩu bỏ</div>
+        <div class="tech-desc">Bỏ hoàn thuế VAT 9% cho module từ 01/04/2026 giúp tái cân bằng ngành solar trong nước, nhưng làm giá xuất khẩu tăng.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Thị trường dầu khí — điểm tuần</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Dầu thô &amp; LNG</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Tháng 4/2026</span><span class="src">Reuters</span></div>
+        <div class="news-title">OPEC+ holds output steady through Q2 2026</div>
+        <div class="news-vn">OPEC+ duy trì cắt giảm sản lượng hiện hữu qua Q2/2026. Saudi và Nga tiếp tục dẫn dắt thỏa thuận tự nguyện. Giá Brent neo quanh $80/bbl.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Tháng 4/2026</span><span class="src">Bloomberg</span></div>
+        <div class="news-title">Global LNG supply glut begins — 80 MTPA added by 2027</div>
+        <div class="news-vn">Làn sóng dự án LNG mới từ Mỹ và Qatar bắt đầu vận hành. Dự kiến 80 triệu tấn/năm công suất mới vào 2027. TTF, JKM giảm so với đỉnh 2022.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">IEA</span></div>
+        <div class="news-title">IEA: oil demand peaks in 2030 scenario</div>
+        <div class="news-vn">IEA World Energy Outlook tiếp tục dự báo nhu cầu dầu toàn cầu đạt đỉnh vào cuối thập niên. EV + NLTT là động lực chính.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>M&amp;A và FID nổi bật</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Reuters</span></div>
+        <div class="news-title">Equinor FID on 1.4GW offshore wind portfolio — Baltic Sea</div>
+        <div class="news-vn">Equinor (Na Uy) quyết định đầu tư cuối cùng cho danh mục offshore wind 1.4GW tại biển Baltic. Tổng đầu tư €4.8 tỷ.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Tháng 3/2026</span><span class="src">Bloomberg</span></div>
+        <div class="news-title">CPP Investments backs Inkia Energy with 2.6GW Peru portfolio</div>
+        <div class="news-vn">Quỹ hưu trí Canada đầu tư cùng I Squared Capital vào Inkia Energy (Peru) — danh mục 2.6GW hiện hữu, pipeline 4GW wind + solar + gas + BESS.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Reuters</span></div>
+        <div class="news-title">Shell sells 30% stake in UK North Sea assets to Ithaca Energy</div>
+        <div class="news-vn">Shell tiếp tục thoái vốn tài sản upstream truyền thống tại Biển Bắc, chuyển sang đầu tư LNG và NLTT. Xu hướng tái cơ cấu danh mục của các majors.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NĂNG LƯỢNG TÁI TẠO ============ -->
+<section id="nltt" class="tab-pane">
+
+  <h3 class="section-title">Xu hướng giá module PV (2024–2026)</h3>
+  <div class="card">
+    <div class="chart-wrap"><canvas id="modulePrice"></canvas></div>
+  </div>
+
+  <h3 class="section-title">Bảng giá nguyên liệu &amp; cấu kiện — tháng 4/2026</h3>
+  <div class="banner" style="background: linear-gradient(90deg, rgba(104,211,145,0.08), rgba(252,129,129,0.08)); border-color: rgba(246,173,85,0.3);">
+    <strong>📌 Ghi chú:</strong> Giá nguyên liệu sơ cấp cấu thành module PV và BESS. Bạc + polysilicon + lithium là 3 yếu tố gây áp lực lớn nhất lên chi phí sản xuất module và pin giai đoạn 2025–2026.
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3><span class="legend-dot" style="background:var(--warn)"></span>Nguyên liệu cấu thành Module PV</h3>
+      <table>
+        <tr><th>Nguyên liệu</th><th>Giá</th><th>YoY</th></tr>
+        <tr><td>Bạc (Silver spot)</td><td class="num">$42.5/oz</td><td style="color:var(--danger)">+200%</td></tr>
+        <tr><td>Polysilicon (N-type)</td><td class="num">€6.39/kg</td><td style="color:var(--danger)">+37%</td></tr>
+        <tr><td>Wafer N-type 182mm</td><td class="num">$0.165/pc</td><td style="color:var(--danger)">+12%</td></tr>
+        <tr><td>Cell TOPCon 182mm</td><td class="num">$0.036/W</td><td style="color:var(--danger)">+8%</td></tr>
+        <tr><td>Nhôm (LME Aluminum)</td><td class="num">$2,520/t</td><td style="color:var(--danger)">+6%</td></tr>
+        <tr><td>Kính solar 3.2mm</td><td class="num">$3.60/m²</td><td style="color:var(--danger)">+9%</td></tr>
+        <tr><td>EVA film (POE)</td><td class="num">$1.85/kg</td><td style="color:var(--danger)">+11%</td></tr>
+        <tr><td>Backsheet (TPT)</td><td class="num">$1.25/m²</td><td style="color:var(--accent-2)">phẳng</td></tr>
+        <tr><td>Đồng (LME Copper)</td><td class="num">$9,820/t</td><td style="color:var(--danger)">+14%</td></tr>
+        <tr><td>Junction box</td><td class="num">$0.9/pc</td><td style="color:var(--accent-2)">ổn định</td></tr>
+        <tr style="background: rgba(252,129,129,0.08)"><td><strong>Tổng chi phí SX module</strong></td><td class="num"><strong>~$0.11/W</strong></td><td style="color:var(--danger)"><strong>+35% YoY</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3><span class="legend-dot" style="background:var(--green)"></span>Nguyên liệu cấu thành BESS &amp; Wind</h3>
+      <table>
+        <tr><th>Nguyên liệu</th><th>Giá</th><th>YoY</th></tr>
+        <tr><td>Lithium carbonate (99.5%)</td><td class="num">$18,200/t</td><td style="color:var(--danger)">+100% (6T)</td></tr>
+        <tr><td>Cathode LFP</td><td class="num">$9.8/kg</td><td style="color:var(--danger)">+28%</td></tr>
+        <tr><td>Graphite anode (cầu)</td><td class="num">$4.2/kg</td><td style="color:var(--accent-2)">phẳng</td></tr>
+        <tr><td>Electrolyte (LFP)</td><td class="num">$6.5/kg</td><td style="color:var(--danger)">+18%</td></tr>
+        <tr><td>Separator (wet)</td><td class="num">$0.85/m²</td><td style="color:var(--green)">−5%</td></tr>
+        <tr><td>Cobalt (LME)</td><td class="num">$28,500/t</td><td style="color:var(--green)">−12%</td></tr>
+        <tr><td>Nickel (LME Class 1)</td><td class="num">$17,400/t</td><td style="color:var(--green)">−8%</td></tr>
+        <tr><td>Thép (Steel HRC)</td><td class="num">$620/t</td><td style="color:var(--accent-2)">ổn định</td></tr>
+        <tr><td>Đất hiếm — NdPr oxide</td><td class="num">$78,000/t</td><td style="color:var(--danger)">+22%</td></tr>
+        <tr><td>Sợi thủy tinh (cánh turbine)</td><td class="num">$3.10/kg</td><td style="color:var(--accent-2)">phẳng</td></tr>
+        <tr style="background: rgba(104,211,145,0.08)"><td><strong>LFP Battery Pack</strong></td><td class="num"><strong>$92/kWh</strong></td><td style="color:var(--green)"><strong>−15% YoY</strong></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 16px;">
+    <div class="card">
+      <h3>📊 Tỷ trọng chi phí — Module PV TOPCon</h3>
+      <div class="chart-wrap"><canvas id="modulCostBreakdown"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>💡 Điểm nhấn &amp; khuyến nghị</h3>
+      <div class="tech-item warn">
+        <div class="tech-title">Bạc là "nút thắt" lớn nhất 2026</div>
+        <div class="tech-desc">Bạc chiếm ~8–10% chi phí module, tăng 200% YoY. Các nhà sản xuất đẩy mạnh <strong>copper-plating</strong> thay bạc — tiết kiệm 70–80% chi phí kim loại dẫn điện.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Polysilicon: giữ ở €6.39/kg</div>
+        <div class="tech-desc">Trung Quốc chủ động cắt sản lượng để cân bằng cung–cầu. Khả năng duy trì mức này đến hết 2026. Ảnh hưởng ~15% CAPEX module.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Lithium carbonate gấp đôi 6 tháng</div>
+        <div class="tech-desc">Từ $9,000 → $18,200/t (Q4/2025 → Q2/2026). BESS tuy rẻ đi ở mức pack nhưng sức ép đầu vào đang tăng. Cần theo dõi quý 3/2026.</div>
+      </div>
+      <div class="tech-item re">
+        <div class="tech-title">Đồng thay bạc — cơ hội giảm chi phí</div>
+        <div class="tech-desc">Dù đồng cũng tăng +14%, thay thế bạc bằng đồng trong cells giúp giảm ~60% chi phí kim loại/module. Maxwell, Sundy triển khai thương mại 2026–2027.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Điện mặt trời</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Thị trường module &amp; công nghệ</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>01/04/2026</span><span class="src">pv magazine</span></div>
+        <div class="news-title"><a href="https://jmbipvtech.com/how-chinese-solar-module-prices-are-shifting-in-the-global-market/" target="_blank">Module TOPCon FOB $0.12/W forecast for H2 2026</a></div>
+        <div class="news-vn">pv magazine dự báo giá module TOPCon FOB Trung Quốc sẽ ổn định quanh $0.12/W trong nửa cuối 2026. Thay đổi lớn so với mức $0.089/W đầu năm.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">InfoLink</span></div>
+        <div class="news-title">TOPCon efficiency now 25.3%+ baseline for mainstream cells</div>
+        <div class="news-vn">TOPCon hiệu suất 25.3%+ trở thành chuẩn cho spot market 2025. Các nhà sản xuất tiếp tục nâng hiệu suất lên 25.5–25.8% cho dòng premium.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">Trina Solar</span></div>
+        <div class="news-title">HJT and back-contact modules gaining share in utility-scale</div>
+        <div class="news-vn">HJT và BC (back-contact) module chiếm thị phần tăng trong phân khúc utility-scale. Bifacial 210mm là chuẩn mới cho ground-mounted.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">NREL</span></div>
+        <div class="news-title">Perovskite-silicon tandem: 33%+ lab efficiency achieved</div>
+        <div class="news-vn">Pin tandem perovskite-silicon vượt 33% hiệu suất trong phòng thí nghiệm. Dự kiến thương mại hóa cho module lớn vào 2027–2028.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Thách thức chuỗi cung ứng</h2>
+      <div class="tech-item warn">
+        <div class="tech-title">Bạc: +200% YoY</div>
+        <div class="tech-desc">Giá bạc (nguyên liệu chính trong cell PV) tăng hơn 200% năm 2025. Các nhà sản xuất đẩy mạnh nghiên cứu cells ít bạc (low-silver) và copper-plating.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Polysilicon: +37% YoY</div>
+        <div class="tech-desc">Giá polysilicon từ €4/kg lên €6.39/kg do Trung Quốc cắt giảm sản lượng để cân bằng cung-cầu. Khả năng duy trì ở mức này trong 2026.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Nhôm, kính, EVA cũng tăng</div>
+        <div class="tech-desc">Giá nhôm (cho frame), kính solar và EVA film đều tăng. Tổng chi phí sản xuất module lên ~$0.11/W từ ~$0.08/W.</div>
+      </div>
+      <div class="tech-item re">
+        <div class="tech-title">Cơ hội nội địa hóa</div>
+        <div class="tech-desc">Giá module xuất Trung Quốc tăng có thể mở ra cơ hội cho sản xuất nội địa Đông Nam Á và Ấn Độ. Vietnam Solar Manufacturing đã có một số nhà máy.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Điện gió — onshore &amp; offshore</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Offshore wind quốc tế</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">GWEC</span></div>
+        <div class="news-title">Global offshore wind: 120GW pipeline to FID by 2030</div>
+        <div class="news-vn">GWEC báo cáo pipeline offshore wind toàn cầu hướng tới FID 2030 đạt 120GW. Trung Quốc 50GW, EU 40GW, Bắc Mỹ + châu Á khác 30GW.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Recharge News</span></div>
+        <div class="news-title">Offshore wind turbines — Vestas V236-15MW &amp; Siemens 15MW lead</div>
+        <div class="news-vn">Tua-bin 15MW của Vestas (V236) và Siemens Gamesa (SG 14-236 DD) dẫn dắt thị trường offshore. Mingyang (TQ) công bố mẫu 18MW.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">4C Offshore</span></div>
+        <div class="news-title">Offshore wind LCOE: $60–80/MWh in mature markets</div>
+        <div class="news-vn">LCOE offshore wind tại thị trường trưởng thành ở mức $60–80/MWh. Châu Á mới nổi cao hơn 20–30% do supply chain chưa nội địa hóa.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Onshore wind &amp; Việt Nam</h2>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">BNEF</span></div>
+        <div class="news-title">Onshore wind turbine prices stabilize at $900–1,000/kW</div>
+        <div class="news-vn">Giá tua-bin onshore ổn định ở mức $900–1,000/kW sau giai đoạn biến động 2022–2024. LCOE onshore giảm nhẹ, khoảng $40/MWh.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>Q1/2026</span><span class="src">Invest Vietnam</span></div>
+        <div class="news-title">Vietnam onshore &amp; nearshore wind: leading short-term growth</div>
+        <div class="news-vn">Trong bối cảnh offshore wind dời sau 2030, onshore và nearshore wind dẫn dắt tăng trưởng ngắn hạn tại VN. Cơ hội cho Horus Power mở rộng pipeline.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>2026</span><span class="src">Reccessary</span></div>
+        <div class="news-title">Vietnam wind auction prices: $75–85/MWh competitive band</div>
+        <div class="news-vn">Giá đấu thầu điện gió tại Việt Nam rơi vào khoảng $75–85/MWh. Cần tối ưu CAPEX và chọn site có wind factor cao để đảm bảo IRR.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Lưu trữ BESS &amp; Hydrogen xanh</h3>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Battery Energy Storage (BESS)</h2>
+      <div class="tech-item re">
+        <div class="tech-title">LCOE BESS 4-hour: $78/MWh (−27% YoY)</div>
+        <div class="tech-desc">LCOE cho BESS 4h giảm mạnh 27% YoY. Giá LFP pack ở mức $85–100/kWh. Khả thi cho nhiều ứng dụng lưới điện.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">TrendForce: Global BESS 353GWh in 2026</div>
+        <div class="tech-desc">Công suất BESS lắp đặt toàn cầu 2026 dự báo đạt 353 GWh, tăng mạnh so với 2025. Trung Quốc, Mỹ, EU dẫn đầu.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Việt Nam: Thông tư 62 là breakthrough</div>
+        <div class="tech-desc">Khung pháp lý giá BESS 2 nguồn thu (capacity + energy) của VN được đánh giá tiến bộ so với cả ASEAN. EVN pilot 1.2GW 2026.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Áp lực giá lithium carbonate</div>
+        <div class="tech-desc">Lithium carbonate gấp đôi trong 6 tháng. Chi phí sản xuất pin tăng. Đe dọa xu hướng giảm giá BESS kéo dài.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Hydrogen xanh &amp; Ammonia</h2>
+      <div class="tech-item">
+        <div class="tech-title">FID global: 15GW electrolyzers by 2030</div>
+        <div class="tech-desc">Các dự án hydrogen xanh đã FID đạt 15GW công suất electrolyzer đến 2030. Châu Âu và Trung Đông dẫn đầu.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Green ammonia: $600–800/tonne LCOH</div>
+        <div class="tech-desc">Ammonia xanh chi phí $600–800/tấn trong điều kiện thị trường 2026. Cần giảm xuống $400 để cạnh tranh với ammonia xám.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-title">Nhật Bản &amp; Hàn Quốc: nhập khẩu</div>
+        <div class="tech-desc">Nhật Bản và Hàn Quốc tiếp tục ký MOU nhập khẩu H2 và NH3 xanh từ Úc, UAE, Trung Đông. Làm hạ tầng nhận.</div>
+      </div>
+      <div class="tech-item warn">
+        <div class="tech-title">Việt Nam: tiềm năng chưa được khai thác</div>
+        <div class="tech-desc">Việt Nam có tiềm năng sản xuất H2 xanh từ offshore wind và solar. Khung pháp lý chưa rõ ràng, còn ở giai đoạn nghiên cứu.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Góc công nghệ — điểm nhấn nghiên cứu</h3>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Pin Sodium-ion thương mại hóa</h3>
+      <div class="news-vn">CATL, BYD, HiNa Battery bắt đầu thương mại hóa pin sodium-ion 2026. Mật độ năng lượng thấp hơn LFP nhưng không phụ thuộc lithium. Ứng dụng cho BESS stationary.</div>
+    </div>
+    <div class="card">
+      <h3>Floating solar trên hồ thủy điện</h3>
+      <div class="news-vn">Trung Quốc, Indonesia, Việt Nam đẩy mạnh floating solar trên hồ thủy điện hiện có. Giảm áp lực quỹ đất, tận dụng lưới điện có sẵn, giảm bốc hơi nước.</div>
+    </div>
+    <div class="card">
+      <h3>SMR — Small Modular Reactors</h3>
+      <div class="news-vn">TerraPower, NuScale, GE Hitachi BWRX-300 tiếp tục tiến độ xây dựng các SMR đầu tiên. Công nghệ hạt nhân mới có thể thương mại hóa cuối thập niên.</div>
+    </div>
+    <div class="card">
+      <h3>Turbine gió 18MW+ offshore</h3>
+      <div class="news-vn">Mingyang (TQ) công bố mẫu 18MW, đường kính rotor 260m. Siemens Gamesa, Vestas đang phát triển 20MW+ cho cuối thập niên.</div>
+    </div>
+    <div class="card">
+      <h3>Electrolyzer AEM</h3>
+      <div class="news-vn">Công nghệ electrolyzer AEM (Anion Exchange Membrane) tiết kiệm hơn PEM. Enapter, Thyssenkrupp triển khai các hệ thống MW-scale đầu tiên.</div>
+    </div>
+    <div class="card">
+      <h3>Recycling pin lithium</h3>
+      <div class="news-vn">Redwood Materials, Li-Cycle mở rộng công suất tái chế pin lithium tại Mỹ và EU. Quan trọng để giảm nhu cầu nguyên liệu sơ cấp và đáp ứng quy định tuần hoàn.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Modal for chart details -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModalBackdrop(event)">
+  <div class="modal" id="modal">
+    <span class="mtag" id="mtag">Chi tiết</span>
+    <h3 id="mtitle">Chi tiết</h3>
+    <div class="mval" id="mval"></div>
+    <div class="mbody" id="mbody"></div>
+    <button class="mclose" onclick="closeModal()">Đóng</button>
+  </div>
+</div>
+
+<footer>
+  <p>Bản tin Năng lượng · Horus Power · Cập nhật 17/04/2026 · Nội bộ HĐQT</p>
+  <p style="margin-top:6px;">Tóm tắt do AI soạn, đã qua biên tập viên duyệt. Nguồn trích dẫn rõ ràng tại mỗi mục tin.</p>
+</footer>
+
+<script>
+// ===== Tab switching =====
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ===== Collapsible sections =====
+document.querySelectorAll('.section-title[data-target]').forEach(title => {
+  title.addEventListener('click', () => {
+    const target = document.getElementById(title.dataset.target);
+    if (!target) return;
+    title.classList.toggle('collapsed');
+    target.classList.toggle('collapsed');
+  });
+});
+
+// ===== Modal =====
+function openModal(tag, title, value, body) {
+  document.getElementById('mtag').textContent = tag;
+  document.getElementById('mtitle').textContent = title;
+  document.getElementById('mval').innerHTML = value;
+  document.getElementById('mbody').innerHTML = body;
+  document.getElementById('modalBackdrop').classList.add('open');
+}
+function closeModal() { document.getElementById('modalBackdrop').classList.remove('open'); }
+function closeModalBackdrop(e) { if (e.target.id === 'modalBackdrop') closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ===== Chart detail data =====
+const chartDetails = {
+  overviewMix: {
+    'Vietnam (%)|Coal': { tag: 'VN · Than', value: '32.5%', body: 'Than vẫn chiếm tỷ trọng lớn nhất trong cơ cấu công suất VN. PDP8 sửa đổi tăng thêm 928 MW than so với PDP8 gốc nhằm đảm bảo an ninh năng lượng.' },
+    'Vietnam (%)|Hydro': { tag: 'VN · Thủy điện', value: '28.7%', body: 'Thủy điện lớn đã gần bão hòa. Tập trung đầu tư vào thủy điện tích năng (pumped hydro) và nâng cấp nhà máy hiện có.' },
+    'Vietnam (%)|Solar+Wind': { tag: 'VN · Solar + Gió', value: '26.0%', body: 'Solar + wind đạt ~26% công suất lắp đặt. Mục tiêu PDP8: đẩy lên 42GW (28.5%) năm 2030, chưa tính offshore wind hoãn sang 2031–2035.' },
+    'Vietnam (%)|Gas/Oil': { tag: 'VN · Khí/Dầu', value: '10.5%', body: 'Khí-dầu chiếm tỷ trọng nhỏ. LNG đang được đẩy mạnh với các nhà máy Nhơn Trạch 3–4. Một số dự án LNG khác dời sau 2030.' },
+    'China (%)|Solar+Wind': { tag: 'Trung Quốc · Solar + Gió', value: '33%', body: 'Trung Quốc dẫn đầu thế giới, vượt 1 TW solar cuối 2026. Thêm 430GW công suất sạch năm 2025. Wind + solar lần đầu vượt 25% sản lượng điện trong một tháng.' },
+    'Global (%)|Coal': { tag: 'Toàn cầu · Than', value: '32%', body: 'Tỷ trọng than toàn cầu giảm chậm, dự báo xuống 26% vào 2030 theo IEA. Giảm ở OECD, chững ở Trung Quốc, vẫn tăng ở Ấn Độ và ĐNÁ.' },
+    'Global (%)|Solar+Wind': { tag: 'Toàn cầu · Solar + Gió', value: '15%', body: 'Solar + wind chiếm ~15% điện toàn cầu 2025. IEA dự báo NLTT + hạt nhân đạt 50% vào 2030. Solar + wind bổ sung 814GW năm 2025 — kỷ lục.' }
+  },
+  vnMix: {
+    'Coal': { tag: 'Than', value: '32.5%', body: 'Than vẫn chiếm tỷ trọng lớn nhất. Áp lực giảm dần nhưng chưa có kế hoạch phase-out cụ thể trong PDP8.' },
+    'Hydropower': { tag: 'Thủy điện', value: '28.7%', body: 'Thủy điện đã gần bão hòa quy mô lớn. EU JETP €430M tài trợ Bác Ái pumped hydro — dự án flagship.' },
+    'Solar + Wind': { tag: 'Solar + Gió', value: '26.0%', body: 'Tổng solar + wind đã vượt 26%. Bùng nổ 2019–2021 với FiT; 2022+ chuyển sang đấu thầu cạnh tranh + DPPA.' },
+    'Gas + Oil': { tag: 'Khí + Dầu', value: '10.5%', body: 'Khí nội địa + LNG nhập khẩu. Nhơn Trạch 3–4 (tổng ~3 GW) đang triển khai.' },
+    'Imports/Other': { tag: 'Nhập khẩu & khác', value: '2.3%', body: 'Nhập khẩu điện từ Lào + các nguồn khác. ASEAN Power Grid giai đoạn 2 mở rộng PPA xuyên biên giới.' }
+  },
+  asiaCapacity: {
+    'Renewable capacity (GW)|China': { tag: 'Trung Quốc · NLTT', value: '1,889 GW', body: 'Trung Quốc vượt 1 TW solar PV cuối 2026. Wind 450+ GW. Mục tiêu 1,200 GW NLTT bổ sung trong Kế hoạch 5 năm 15 (2026–2030).' },
+    'Renewable capacity (GW)|India': { tag: 'Ấn Độ · NLTT', value: '283 GW', body: 'Ấn Độ đạt 500GW phi hóa thạch trước 5 năm. Solar 283GW, wind 51GW. FY25–26 bổ sung 55GW — kỷ lục.' },
+    'Renewable capacity (GW)|Vietnam': { tag: 'VN · NLTT', value: '45 GW', body: 'Việt Nam có ~45GW solar + wind lắp đặt. Offshore wind 6GW dời sau 2030. Onshore/nearshore wind dẫn dắt tăng trưởng ngắn hạn.' },
+    'Nuclear capacity (GW)|Japan': { tag: 'Nhật · Hạt nhân', value: '33 GW', body: '15 lò phản ứng vận hành sau Kashiwazaki-Kariwa restart. Mục tiêu 20% điện hạt nhân 2040.' },
+    'Nuclear capacity (GW)|South Korea': { tag: 'Hàn Quốc · Hạt nhân', value: '24.5 GW', body: 'Đảo ngược chính sách phi hạt nhân — mở rộng công suất đến 2050. Song song phát triển hydrogen.' },
+    'Nuclear capacity (GW)|Vietnam': { tag: 'VN · Hạt nhân', value: '0 GW', body: 'Kế hoạch Ninh Thuận quay lại: Thủ tướng xác nhận vận hành trước 2030. Đàm phán công nghệ với Nga (VVER-1200) và Hàn Quốc.' }
+  },
+  globalMix: {
+    'Coal': { tag: 'Toàn cầu · Than', value: '32% → 26%', body: '2020: 35% · 2025: 33% · 2030F: 26%. Giảm ở OECD, chững ở Trung Quốc, tăng chậm ở Ấn Độ và ĐNÁ.' },
+    'Renewables': { tag: 'Toàn cầu · NLTT', value: '27% → 50%', body: '2020: 27% · 2025: 33% · 2030F: 50%. 814 GW bổ sung năm 2025 là kỷ lục. IEA: NLTT + hạt nhân đạt 50% vào 2030.' },
+    'Gas': { tag: 'Toàn cầu · Khí', value: '23% → 18%', body: '2020: 23% · 2025: 21% · 2030F: 18%. Tỷ trọng khí đạt đỉnh ở hầu hết thị trường lớn. Vai trò cầu nối đang bị cạnh tranh bởi điện hóa trực tiếp.' },
+    'Nuclear': { tag: 'Toàn cầu · Hạt nhân', value: '10% → 10%', body: '2020: 10% · 2025: 9% · 2030F: 10%. Ổn định, mở rộng đang diễn ra: Nhật restart, TQ xây dựng, hyperscaler Mỹ mua nuclear, SMR thương mại hóa.' }
+  },
+  globalInvestment: {
+    'Clean energy ($B)|2020': { tag: 'Sạch · 2020', value: '$1.1 T', body: 'Lần đầu tiên đầu tư năng lượng sạch ngang bằng hóa thạch. Gói kích thích hậu COVID ưu tiên xanh ở EU, Hàn, TQ.' },
+    'Clean energy ($B)|2022': { tag: 'Sạch · 2022', value: '$1.4 T', body: 'Bước nhảy sau IRA (Mỹ) và RePowerEU. Lạm phát + lãi suất làm chậm dự án nhưng nhà đầu tư vẫn rất quan tâm.' },
+    'Clean energy ($B)|2024': { tag: 'Sạch · 2024', value: '$2.0 T', body: 'Gấp 2 lần hóa thạch. Solar thu hút lượng lớn nhất; storage, lưới, sạc EV mở rộng nhanh.' },
+    'Clean energy ($B)|2025': { tag: 'Sạch · 2025', value: '$2.3 T', body: 'Kỷ lục. Solar đơn lẻ $450B. Tỷ lệ sạch-vs-hóa thạch mở rộng lên 2:1. BloombergNEF xác nhận $2.3T.' },
+    'Fossil fuels ($B)|2020': { tag: 'Hóa thạch · 2020', value: '$900 B', body: 'Đại dịch làm sụt giảm đầu tư O&G. Ngành tái thiết capex; nhấn mạnh downstream & LNG.' },
+    'Fossil fuels ($B)|2024': { tag: 'Hóa thạch · 2024', value: '$1.05 T', body: 'Xu hướng đi ngang. Các majors trả lại tiền cổ đông thay vì tái đầu tư; tập trung vào mỏ rẻ nhất + khí.' },
+    'Fossil fuels ($B)|2025': { tag: 'Hóa thạch · 2025', value: '$1.1 T', body: 'Vốn sạch giờ gấp đôi hóa thạch. Đầu tư upstream có thể tăng phòng thủ ngắn hạn do biến động địa chính trị.' }
+  },
+  modulePrice: {
+    'TOPCon Module ($/W)|Jan 2024': { tag: 'Module · 1/2024', value: '$0.11/W', body: 'Đầu 2024 giá module TOPCon ~$0.11/W. Giai đoạn cân bằng trước sóng giảm giá mạnh 2025.' },
+    'TOPCon Module ($/W)|Dec 2025': { tag: 'Module · 12/2025', value: '$0.085/W', body: 'Cuối 2025 chạm đáy lịch sử $0.085/W do dư cung. Nhiều nhà sản xuất TQ (JA Solar, Jinko, Trina, TCL Zhonghuan) báo lỗ.' },
+    'TOPCon Module ($/W)|Mar 2026': { tag: 'Module · 3/2026', value: '$0.090/W', body: 'Tăng nhẹ do \'pre-rebate rush\' khi người mua đổ dồn trước ngày 01/04.' },
+    'TOPCon Module ($/W)|Apr 2026': { tag: 'Module · 4/2026', value: '$0.094/W', body: 'Thời điểm chính thức bỏ hoàn thuế VAT 9%. Bạc +200% YoY, polysilicon +37% cộng thêm áp lực.' },
+    'TOPCon Module ($/W)|H2 2026F': { tag: 'Module · H2 2026', value: '$0.108–0.12/W', body: 'pv magazine dự báo giá ổn định quanh $0.12/W H2 2026. Tăng 25–35% so với đáy 2025.' }
+  }
+};
+
+function registerChartClicks(chart, chartKey) {
+  chart.options.onClick = (evt, elements) => {
+    if (!elements.length) return;
+    const e = elements[0];
+    const ds = chart.data.datasets[e.datasetIndex];
+    const label = chart.data.labels[e.index];
+    const details = chartDetails[chartKey] || {};
+    let entry = details[ds.label + '|' + label] || details[label];
+    if (!entry) entry = { tag: ds.label || 'Chi tiết', value: ds.data[e.index], body: 'Không có chi tiết bổ sung cho mục này.' };
+    openModal(entry.tag, entry.tag, entry.value, entry.body);
+  };
+}
+
+// ===== Chart defaults =====
+Chart.defaults.color = '#8ea0bf';
+Chart.defaults.borderColor = '#263d6b';
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+function addChartHint(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const wrap = canvas.parentElement;
+  if (wrap && !wrap.querySelector('.chart-hint')) {
+    const hint = document.createElement('span');
+    hint.className = 'chart-hint';
+    hint.textContent = '▸ nhấn để xem chi tiết';
+    wrap.appendChild(hint);
+  }
+}
+
+// ===== Overview: regional mix =====
+const overviewMixChart = new Chart(document.getElementById('overviewMix'), {
+  type: 'bar',
+  data: {
+    labels: ['Coal', 'Gas/Oil', 'Hydro', 'Solar+Wind', 'Nuclear', 'Other'],
+    datasets: [
+      { label: 'Vietnam (%)', data: [32.5, 10.5, 28.7, 26.0, 0, 2.3], backgroundColor: '#3BA3DB' },
+      { label: 'China (%)', data: [38, 4, 15, 33, 2, 8], backgroundColor: '#f6ad55' },
+      { label: 'Global (%)', data: [32, 22, 14, 15, 9, 8], backgroundColor: '#63b3ed' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' } },
+    scales: { y: { beginAtZero: true, title: { display: true, text: '% công suất' } } }
+  }
+});
+
+// ===== Vietnam: energy mix donut =====
+const vnMixChart = new Chart(document.getElementById('vnMix'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Coal', 'Hydropower', 'Solar + Wind', 'Gas + Oil', 'Imports/Other'],
+    datasets: [{
+      data: [32.5, 28.7, 26.0, 10.5, 2.3],
+      backgroundColor: ['#4a5568', '#3BA3DB', '#68d391', '#f6ad55', '#8ea0bf'],
+      borderColor: '#132243', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right' },
+      title: { display: true, text: 'Việt Nam — công suất lắp đặt 82.4 GW (2024)' }
+    }
+  }
+});
+
+// ===== Asia capacity =====
+const asiaCapacityChart = new Chart(document.getElementById('asiaCapacity'), {
+  type: 'bar',
+  data: {
+    labels: ['China', 'India', 'Japan', 'South Korea', 'Indonesia', 'Vietnam'],
+    datasets: [
+      { label: 'Renewable capacity (GW)', data: [1889, 283, 135, 40, 15, 45], backgroundColor: '#68d391' },
+      { label: 'Nuclear capacity (GW)', data: [56, 8.8, 33, 24.5, 0, 0], backgroundColor: '#f6ad55' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    indexAxis: 'y',
+    scales: { x: { beginAtZero: true, title: { display: true, text: 'GW' } } }
+  }
+});
+
+// ===== Global mix evolution =====
+const globalMixChart = new Chart(document.getElementById('globalMix'), {
+  type: 'line',
+  data: {
+    labels: ['2020','2021','2022','2023','2024','2025','2026F','2030F'],
+    datasets: [
+      { label: 'Coal', data: [35,36,36,35,35,33,32,26], borderColor: '#4a5568', backgroundColor: 'rgba(74,85,104,0.1)', tension: 0.3, fill: true },
+      { label: 'Renewables', data: [27,28,29,30,31,33,36,50], borderColor: '#68d391', backgroundColor: 'rgba(104,211,145,0.15)', tension: 0.3, fill: true },
+      { label: 'Gas', data: [23,22,22,22,20,21,22,18], borderColor: '#f6ad55', backgroundColor: 'rgba(246,173,85,0.08)', tension: 0.3 },
+      { label: 'Nuclear', data: [10,10,9,9,9,9,9,10], borderColor: '#3BA3DB', backgroundColor: 'rgba(59,163,219,0.08)', tension: 0.3 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: 'Tỷ trọng sản xuất điện toàn cầu (%)' } },
+    scales: { y: { beginAtZero: true, max: 55 } }
+  }
+});
+
+// ===== Global investment =====
+const globalInvestmentChart = new Chart(document.getElementById('globalInvestment'), {
+  type: 'bar',
+  data: {
+    labels: ['2015','2020','2022','2024','2025'],
+    datasets: [
+      { label: 'Clean energy ($B)', data: [900, 1100, 1400, 2000, 2300], backgroundColor: '#68d391' },
+      { label: 'Fossil fuels ($B)', data: [1200, 900, 1000, 1050, 1100], backgroundColor: '#fc8181' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: 'Đầu tư năng lượng toàn cầu: sạch vs. hóa thạch (tỷ USD)' } },
+    scales: { y: { beginAtZero: true, title: { display: true, text: 'Tỷ USD' } } }
+  }
+});
+
+// ===== Module price =====
+const modulePriceChart = new Chart(document.getElementById('modulePrice'), {
+  type: 'line',
+  data: {
+    labels: ['Jan 2024', 'Jun 2024', 'Dec 2024', 'Jun 2025', 'Dec 2025', 'Mar 2026', 'Apr 2026', 'H2 2026F'],
+    datasets: [{
+      label: 'TOPCon Module ($/W)',
+      data: [0.11, 0.105, 0.095, 0.090, 0.085, 0.090, 0.094, 0.115],
+      borderColor: '#3BA3DB',
+      backgroundColor: 'rgba(59,163,219,0.15)',
+      tension: 0.3, fill: true, pointRadius: 5, pointHoverRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: 'Giá module TOPCon FOB Trung Quốc ($/W) — 2024 → H2 2026F' } },
+    scales: { y: { beginAtZero: false, title: { display: true, text: '$/W' } } }
+  }
+});
+
+// ===== Module cost breakdown (doughnut) =====
+const modulCostBreakdownChart = new Chart(document.getElementById('modulCostBreakdown'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Polysilicon / Wafer', 'Bạc (Silver)', 'Cell processing', 'Nhôm (frame)', 'Kính solar', 'EVA + Backsheet', 'Junction box + khác'],
+    datasets: [{
+      data: [32, 10, 18, 12, 11, 12, 5],
+      backgroundColor: ['#3BA3DB', '#f6ad55', '#68d391', '#8ea0bf', '#63b3ed', '#b794f4', '#fc8181'],
+      borderColor: '#132243', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } },
+      title: { display: true, text: 'Tỷ trọng chi phí sản xuất module TOPCon (%)' }
+    }
+  }
+});
+
+// Extra modal details for module cost breakdown
+chartDetails.modulCostBreakdown = {
+  'Polysilicon / Wafer': { tag: 'Polysilicon · Wafer', value: '32%', body: 'Polysilicon (€6.39/kg) + wafer chiếm ~1/3 chi phí module. Nhạy cảm nhất với cân bằng cung-cầu Trung Quốc.' },
+  'Bạc (Silver)': { tag: 'Bạc · Silver', value: '10%', body: 'Bạc +200% YoY năm 2025. Là kim loại dẫn điện cho cell. Các nhà SX đang chuyển sang copper-plating để giảm phụ thuộc.' },
+  'Cell processing': { tag: 'Cell processing', value: '18%', body: 'Chi phí chế biến wafer → cell, bao gồm lắng đọng, doping, metallization, kiểm tra. TOPCon phức tạp hơn PERC.' },
+  'Nhôm (frame)': { tag: 'Nhôm · Frame', value: '12%', body: 'Nhôm LME $2,520/t. Frame module thường 2.0–2.5kg nhôm/module 400–600W.' },
+  'Kính solar': { tag: 'Kính solar', value: '11%', body: 'Kính 3.2mm low-iron, giá $3.60/m². Tăng 9% YoY do nhu cầu mạnh và tồn kho thấp.' },
+  'EVA + Backsheet': { tag: 'EVA + Backsheet', value: '12%', body: 'EVA film POE $1.85/kg (+11% YoY). Backsheet TPT $1.25/m². Áp lực từ nhựa POE và fluoropolymer.' },
+  'Junction box + khác': { tag: 'Junction box + khác', value: '5%', body: 'Junction box, connector, dây điện, vật liệu đóng gói, chi phí lao động & năng lượng.' }
+};
+
+// Wire click handlers + hints
+[
+  ['overviewMix', overviewMixChart],
+  ['vnMix', vnMixChart],
+  ['asiaCapacity', asiaCapacityChart],
+  ['globalMix', globalMixChart],
+  ['globalInvestment', globalInvestmentChart],
+  ['modulePrice', modulePriceChart],
+  ['modulCostBreakdown', modulCostBreakdownChart]
+].forEach(([key, chart]) => {
+  registerChartClicks(chart, key);
+  chart.update();
+  addChartHint(key);
+});
+</script>
+</body>
+</html>

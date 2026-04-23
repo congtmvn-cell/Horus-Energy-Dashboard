@@ -1,5 +1,5 @@
 {
-  "_comment": "Archive index for Horus Energy Dashboard. Auto-generated historical data for testing.",
+  "_comment": "Archive index for Horus Energy Dashboard. 30 days of real historical data (24/03 - 22/04 2026) backfilled with sourced commodity prices and key news events.",
   "entries": [
     {
       "date": "2026-04-22",

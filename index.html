@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bản tin Năng lượng — Horus Power — Tháng 4/2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
 // ===== Backtrack sparklines =====
-const backtrackData = {"brent": {"values": [99.9914, 100.1394, 99.9466, 100.3535, 100.5308, 100.9079, 101.2333, 102.167, 102.7774, 104.1122, 104.4438, 105.3873, 105.4118, 106.4535, 106.9726, 106.8343, 107.7324, 107.979, 107.5114, 107.7892, 107.2605, 106.6233, 105.175, 104.0635, 103.1357, 101.7153, 100.7751, 99.8504, 98.7967, 105.63], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "ttf": {"values": [54.937, 54.3079, 53.9307, 53.7472, 53.3343, 52.9306, 52.4496, 51.2271, 50.6604, 50.087, 49.4154, 48.9164, 48.3409, 47.8533, 45.4121, 46.2737, 43.6496, 44.551, 45.434, 46.3023, 45.0932, 41.3927, 42.3815, 41.565, 41.7867, 41.8254, 41.9477, 41.9945, 42.2891, 42.39], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "\u20ac"}, "jkm": {"values": [20.6216, 20.4073, 20.2597, 20.0773, 19.8024, 19.609, 19.5526, 18.8636, 18.6436, 18.5399, 18.2457, 18.0819, 17.8133, 17.6196, 17.2849, 17.0851, 16.8495, 17.2699, 17.7676, 18.225, 16.9407, 15.8326, 16.0117, 16.1742, 16.0421, 16.0518, 15.904, 15.8377, 15.9983, 15.8], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "coal": {"values": [128.0579, 128.5582, 128.7151, 128.9699, 129.4987, 130.1464, 130.3831, 130.673, 130.4969, 130.8811, 130.8894, 130.9995, 131.1341, 131.3835, 132.0316, 132.1455, 132.3097, 132.4844, 132.2612, 132.5167, 132.9058, 133.1542, 133.3432, 133.4674, 133.0459, 133.4992, 133.6504, 133.6468, 133.5345, 129.1], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "module_pv": {"values": [0.0994, 0.1004, 0.1018, 0.1029, 0.1053, 0.1078, 0.1099, 0.1181, 0.1183, 0.1186, 0.119, 0.1192, 0.1198, 0.1199, 0.12, 0.12, 0.1202, 0.1204, 0.1206, 0.1206, 0.1206, 0.1207, 0.1211, 0.1208, 0.1208, 0.1206, 0.1205, 0.1201, 0.1201, 0.119], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "cell": {"values": [0.0445, 0.045, 0.0455, 0.0461, 0.0473, 0.0487, 0.0501, 0.053, 0.0533, 0.0533, 0.0535, 0.0536, 0.0538, 0.0539, 0.054, 0.054, 0.054, 0.0541, 0.0541, 0.0541, 0.054, 0.054, 0.0541, 0.0539, 0.0541, 0.0539, 0.054, 0.054, 0.0541, 0.056], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "wafer": {"values": [0.1462, 0.1473, 0.1489, 0.1498, 0.1513, 0.1527, 0.1536, 0.155, 0.1555, 0.1557, 0.1563, 0.1568, 0.1572, 0.1577, 0.1579, 0.1584, 0.1588, 0.1594, 0.16, 0.1603, 0.1608, 0.1611, 0.1617, 0.1618, 0.1625, 0.1633, 0.1639, 0.1644, 0.1648, 0.164], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "silver": {"values": [69.1466, 69.9014, 69.7528, 70.4803, 70.6734, 70.7478, 71.4689, 71.4015, 72.0426, 72.0263, 72.3429, 72.9339, 73.5875, 73.2677, 73.6546, 74.3135, 74.9003, 74.8978, 75.064, 75.9171, 75.4018, 76.4704, 76.2784, 76.4721, 76.6269, 76.9827, 77.6334, 77.223, 77.7761, 76.88], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "polysilicon": {"values": [4.7296, 4.7143, 4.6869, 4.6823, 4.6638, 4.6411, 4.6109, 4.6005, 4.5905, 4.5832, 4.5937, 4.5891, 4.5618, 4.5749, 4.5635, 4.5529, 4.5451, 4.5665, 4.574, 4.5918, 4.6037, 4.5849, 4.5928, 4.591, 4.5948, 4.5906, 4.5815, 4.5846, 4.5916, 4.65], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "\u20ac"}, "aluminum": {"values": [3430.6749, 3438.1616, 3448.5129, 3444.5787, 3452.842, 3458.887, 3467.7281, 3484.072, 3477.1305, 3487.6889, 3485.721, 3490.6981, 3496.6605, 3507.34, 3506.8997, 3500.0532, 3508.2064, 3509.504, 3525.819, 3528.313, 3531.8248, 3535.7603, 3535.7502, 3540.7941, 3539.4771, 3531.4132, 3543.3318, 3538.3376, 3544.5136, 3630.0], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "copper": {"values": [12887.1648, 12912.8802, 12897.2837, 12911.9939, 12965.2496, 12982.3758, 13049.2537, 13064.9234, 13067.9502, 13074.5633, 13092.6605, 13062.1421, 13095.2883, 13083.4339, 13151.9582, 13095.2442, 13165.1358, 13116.4367, 13174.7612, 13157.1197, 13172.4569, 13209.2066, 13146.169, 13151.6251, 13221.342, 13191.3314, 13160.3732, 13233.441, 13232.3716, 13190.0], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "solar_glass": {"values": [3.5186, 3.5214, 3.5297, 3.5248, 3.5377, 3.5403, 3.5328, 3.5447, 3.5449, 3.5495, 3.5568, 3.56, 3.5546, 3.5635, 3.5655, 3.5709, 3.5602, 3.5759, 3.5684, 3.5699, 3.5793, 3.5855, 3.59, 3.5843, 3.5937, 3.585, 3.6012, 3.5943, 3.6006, 3.6], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "lithium": {"values": [21910.4721, 22074.6611, 22093.9269, 22201.3926, 22315.5895, 22343.4911, 22502.1436, 22563.4205, 22632.9233, 22546.5526, 22624.3606, 22625.6658, 22796.3305, 22815.2522, 22736.3657, 22948.1835, 22985.1436, 22961.573, 22987.8994, 22936.9789, 22943.9641, 23071.904, 23018.605, 23045.2443, 23057.3007, 23020.6311, 23103.3322, 23101.5042, 23178.3216, 20684.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "cobalt": {"values": [29501.333, 29457.883, 29474.2208, 29321.7458, 29284.6111, 29334.2414, 29286.4369, 29189.5929, 29221.9214, 29137.0974, 29169.1785, 29019.611, 29003.4866, 29087.1375, 28958.071, 28906.6602, 28966.5807, 28902.1245, 28784.2021, 28819.2183, 28804.1774, 28683.6002, 28733.0253, 28607.5613, 28609.9345, 28531.9181, 28518.2993, 28616.3196, 28483.5286, 56290.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "nickel": {"values": [17742.7778, 17793.3845, 17728.2546, 17787.9776, 17688.2035, 17750.8591, 17719.5009, 17721.2615, 17720.0355, 17639.0831, 17633.9876, 17652.8398, 17601.3581, 17586.06, 17569.2305, 17610.763, 17598.4115, 17577.8425, 17513.6753, 17561.3626, 17511.3403, 17473.0526, 17478.8719, 17461.967, 17418.4257, 17447.0209, 17415.3838, 17419.8545, 17437.4289, 18710.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "steel": {"values": [615.7384, 616.1949, 615.1288, 616.1812, 616.2394, 616.3327, 615.4862, 615.5046, 616.3375, 617.18, 616.4383, 617.0719, 616.9033, 618.0553, 618.411, 617.5762, 618.8551, 617.2916, 618.8557, 619.1446, 617.9728, 619.1747, 619.0749, 619.9834, 618.7716, 619.557, 620.3661, 620.0856, 619.6451, 1133.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "rare_earth": {"values": [74281.5486, 74128.4034, 74144.0636, 74542.3443, 74684.3086, 74809.4233, 74928.0325, 74891.2332, 75019.087, 75552.8758, 75358.146, 75813.8854, 76054.2933, 76264.474, 76474.2869, 75964.1543, 76104.2468, 76698.28, 76690.1477, 76484.0117, 77060.4383, 77379.5204, 77483.3752, 77046.9604, 77261.4236, 77126.8931, 78167.7994, 77600.864, 78212.5696, 124870.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "lfp_pack": {"values": [89.4448, 89.3817, 89.3353, 89.2769, 89.2695, 89.1466, 89.162, 88.9989, 88.9992, 88.9534, 88.8674, 88.9226, 88.7939, 88.8272, 88.8051, 88.6287, 88.6904, 88.6235, 88.5469, 88.3819, 88.4062, 88.3845, 88.2744, 88.21, 88.1733, 88.1125, 88.1542, 88.0249, 87.9865, 81.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 1, "prefix": "$"}};
-const backtrackDates = ["2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-24"];
+const backtrackData = {"brent": {"values": [100.1394, 99.9466, 100.3535, 100.5308, 100.9079, 101.2333, 102.167, 102.7774, 104.1122, 104.4438, 105.3873, 105.4118, 106.4535, 106.9726, 106.8343, 107.7324, 107.979, 107.5114, 107.7892, 107.2605, 106.6233, 105.175, 104.0635, 103.1357, 101.7153, 100.7751, 99.8504, 98.7967, 102.2133, 105.63], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "ttf": {"values": [54.3079, 53.9307, 53.7472, 53.3343, 52.9306, 52.4496, 51.2271, 50.6604, 50.087, 49.4154, 48.9164, 48.3409, 47.8533, 45.4121, 46.2737, 43.6496, 44.551, 45.434, 46.3023, 45.0932, 41.3927, 42.3815, 41.565, 41.7867, 41.8254, 41.9477, 41.9945, 42.2891, 42.3396, 42.39], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "\u20ac"}, "jkm": {"values": [20.4073, 20.2597, 20.0773, 19.8024, 19.609, 19.5526, 18.8636, 18.6436, 18.5399, 18.2457, 18.0819, 17.8133, 17.6196, 17.2849, 17.0851, 16.8495, 17.2699, 17.7676, 18.225, 16.9407, 15.8326, 16.0117, 16.1742, 16.0421, 16.0518, 15.904, 15.8377, 15.9983, 15.8992, 15.8], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "coal": {"values": [128.5582, 128.7151, 128.9699, 129.4987, 130.1464, 130.3831, 130.673, 130.4969, 130.8811, 130.8894, 130.9995, 131.1341, 131.3835, 132.0316, 132.1455, 132.3097, 132.4844, 132.2612, 132.5167, 132.9058, 133.1542, 133.3432, 133.4674, 133.0459, 133.4992, 133.6504, 133.6468, 133.5345, 131.3173, 129.1], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "module_pv": {"values": [0.1004, 0.1018, 0.1029, 0.1053, 0.1078, 0.1099, 0.1181, 0.1183, 0.1186, 0.119, 0.1192, 0.1198, 0.1199, 0.12, 0.12, 0.1202, 0.1204, 0.1206, 0.1206, 0.1206, 0.1207, 0.1211, 0.1208, 0.1208, 0.1206, 0.1205, 0.1201, 0.1201, 0.1195, 0.119], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "cell": {"values": [0.045, 0.0455, 0.0461, 0.0473, 0.0487, 0.0501, 0.053, 0.0533, 0.0533, 0.0535, 0.0536, 0.0538, 0.0539, 0.054, 0.054, 0.054, 0.0541, 0.0541, 0.0541, 0.054, 0.054, 0.0541, 0.0539, 0.0541, 0.0539, 0.054, 0.054, 0.0541, 0.0551, 0.056], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "wafer": {"values": [0.1473, 0.1489, 0.1498, 0.1513, 0.1527, 0.1536, 0.155, 0.1555, 0.1557, 0.1563, 0.1568, 0.1572, 0.1577, 0.1579, 0.1584, 0.1588, 0.1594, 0.16, 0.1603, 0.1608, 0.1611, 0.1617, 0.1618, 0.1625, 0.1633, 0.1639, 0.1644, 0.1648, 0.1644, 0.164], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "silver": {"values": [69.9014, 69.7528, 70.4803, 70.6734, 70.7478, 71.4689, 71.4015, 72.0426, 72.0263, 72.3429, 72.9339, 73.5875, 73.2677, 73.6546, 74.3135, 74.9003, 74.8978, 75.064, 75.9171, 75.4018, 76.4704, 76.2784, 76.4721, 76.6269, 76.9827, 77.6334, 77.223, 77.7761, 77.328, 76.88], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "polysilicon": {"values": [4.7143, 4.6869, 4.6823, 4.6638, 4.6411, 4.6109, 4.6005, 4.5905, 4.5832, 4.5937, 4.5891, 4.5618, 4.5749, 4.5635, 4.5529, 4.5451, 4.5665, 4.574, 4.5918, 4.6037, 4.5849, 4.5928, 4.591, 4.5948, 4.5906, 4.5815, 4.5846, 4.5916, 4.6208, 4.65], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "\u20ac"}, "aluminum": {"values": [3438.1616, 3448.5129, 3444.5787, 3452.842, 3458.887, 3467.7281, 3484.072, 3477.1305, 3487.6889, 3485.721, 3490.6981, 3496.6605, 3507.34, 3506.8997, 3500.0532, 3508.2064, 3509.504, 3525.819, 3528.313, 3531.8248, 3535.7603, 3535.7502, 3540.7941, 3539.4771, 3531.4132, 3543.3318, 3538.3376, 3544.5136, 3587.2568, 3630.0], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "copper": {"values": [12912.8802, 12897.2837, 12911.9939, 12965.2496, 12982.3758, 13049.2537, 13064.9234, 13067.9502, 13074.5633, 13092.6605, 13062.1421, 13095.2883, 13083.4339, 13151.9582, 13095.2442, 13165.1358, 13116.4367, 13174.7612, 13157.1197, 13172.4569, 13209.2066, 13146.169, 13151.6251, 13221.342, 13191.3314, 13160.3732, 13233.441, 13232.3716, 13211.1858, 13190.0], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "solar_glass": {"values": [3.5214, 3.5297, 3.5248, 3.5377, 3.5403, 3.5328, 3.5447, 3.5449, 3.5495, 3.5568, 3.56, 3.5546, 3.5635, 3.5655, 3.5709, 3.5602, 3.5759, 3.5684, 3.5699, 3.5793, 3.5855, 3.59, 3.5843, 3.5937, 3.585, 3.6012, 3.5943, 3.6006, 3.6003, 3.6], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "lithium": {"values": [22074.6611, 22093.9269, 22201.3926, 22315.5895, 22343.4911, 22502.1436, 22563.4205, 22632.9233, 22546.5526, 22624.3606, 22625.6658, 22796.3305, 22815.2522, 22736.3657, 22948.1835, 22985.1436, 22961.573, 22987.8994, 22936.9789, 22943.9641, 23071.904, 23018.605, 23045.2443, 23057.3007, 23020.6311, 23103.3322, 23101.5042, 23178.3216, 21931.1608, 20684.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "cobalt": {"values": [29457.883, 29474.2208, 29321.7458, 29284.6111, 29334.2414, 29286.4369, 29189.5929, 29221.9214, 29137.0974, 29169.1785, 29019.611, 29003.4866, 29087.1375, 28958.071, 28906.6602, 28966.5807, 28902.1245, 28784.2021, 28819.2183, 28804.1774, 28683.6002, 28733.0253, 28607.5613, 28609.9345, 28531.9181, 28518.2993, 28616.3196, 28483.5286, 42386.7643, 56290.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "nickel": {"values": [17793.3845, 17728.2546, 17787.9776, 17688.2035, 17750.8591, 17719.5009, 17721.2615, 17720.0355, 17639.0831, 17633.9876, 17652.8398, 17601.3581, 17586.06, 17569.2305, 17610.763, 17598.4115, 17577.8425, 17513.6753, 17561.3626, 17511.3403, 17473.0526, 17478.8719, 17461.967, 17418.4257, 17447.0209, 17415.3838, 17419.8545, 17437.4289, 18073.7144, 18710.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "steel": {"values": [616.1949, 615.1288, 616.1812, 616.2394, 616.3327, 615.4862, 615.5046, 616.3375, 617.18, 616.4383, 617.0719, 616.9033, 618.0553, 618.411, 617.5762, 618.8551, 617.2916, 618.8557, 619.1446, 617.9728, 619.1747, 619.0749, 619.9834, 618.7716, 619.557, 620.3661, 620.0856, 619.6451, 876.3225, 1133.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "rare_earth": {"values": [74128.4034, 74144.0636, 74542.3443, 74684.3086, 74809.4233, 74928.0325, 74891.2332, 75019.087, 75552.8758, 75358.146, 75813.8854, 76054.2933, 76264.474, 76474.2869, 75964.1543, 76104.2468, 76698.28, 76690.1477, 76484.0117, 77060.4383, 77379.5204, 77483.3752, 77046.9604, 77261.4236, 77126.8931, 78167.7994, 77600.864, 78212.5696, 101541.2848, 124870.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "lfp_pack": {"values": [89.3817, 89.3353, 89.2769, 89.2695, 89.1466, 89.162, 88.9989, 88.9992, 88.9534, 88.8674, 88.9226, 88.7939, 88.8272, 88.8051, 88.6287, 88.6904, 88.6235, 88.5469, 88.3819, 88.4062, 88.3845, 88.2744, 88.21, 88.1733, 88.1125, 88.1542, 88.0249, 87.9865, 84.4933, 81.0], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 1, "prefix": "$"}};
+const backtrackDates = ["2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24"];
 const backtrackLabels = backtrackDates.map(d => d.slice(8,10) + '/' + d.slice(5,7));
 function fmtBT(v, decimals, prefix) {
   if (decimals === 0) return prefix + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
@@ -43,41 +44,6 @@ Object.keys(backtrackData).forEach(key => {
       labels: backtrackLabels,
       datasets: [{
         data: values, borderColor: cfg.color, backgroundColor: cfg.accent,
-        borderWidth: 2, fill: true, tension: 0.3,
-        pointRadius: 0, pointHoverRadius: 5,
-        pointHoverBackgroundColor: cfg.color, pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#0a1429', borderColor: cfg.color, borderWidth: 1,
-          titleColor: '#fff', bodyColor: '#e6ecf5', padding: 8, displayColors: false,
-          callbacks: {
-            title: (ctx) => backtrackDates[ctx[0].dataIndex].split('-').reverse().join('/'),
-            label: (ctx) => fmtBT(ctx.raw, cfg.decimals, cfg.prefix)
-          }
-        }
-      },
-      scales: { x: { display: false }, y: { display: false, grace: '5%' } }
-    }
-  });
-});
-  return prefix + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-}
-Object.keys(backtrackData).forEach(key => {
-  const cfg = backtrackData[key];
-  const ctx = document.getElementById('sk_' + key);
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: backtrackLabels,
-      datasets: [{
-        data: cfg.values, borderColor: cfg.color, backgroundColor: cfg.accent,
         borderWidth: 2, fill: true, tension: 0.3,
         pointRadius: 0, pointHoverRadius: 5,
         pointHoverBackgroundColor: cfg.color, pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2,
@@ -693,57 +659,57 @@ Object.keys(backtrackData).forEach(key => {
     <div class="card">
       <h2><span class="legend-dot" style="background:var(--vn)"></span>Việt Nam</h2>
       <div class="news-item">
-        <div class="news-meta"><span>22/04/2026</span><span class="src">The Investor</span></div>
-        <div class="news-title"><a href="https://theinvestor.vn/central-vietnam-province-ha-tinh-picks-vingroup-for-2-wind-power-projects-worth-148-bln-d17776.html" target="_blank">Ha Tinh picks Vingroup (VinEnergo) for 2 offshore wind projects worth $1.48bn</a></div>
-        <div class="news-vn">UBND Hà Tĩnh chọn VinEnergo (Vingroup) làm nhà đầu tư 2 dự án điện gió tại Kỳ Anh, tổng vốn >39 nghìn tỷ đồng ($1.48 tỷ). Tín hiệu mạnh cho cạnh tranh trong nước — Horus Power cần tăng tốc khảo sát các vị trí còn trống.</div>
+        <div class="news-meta"><span>24/04/2026</span><span class="src">Báo Chính phủ</span></div>
+        <div class="news-title"><a href="https://baochinhphu.vn/chi-dao-dieu-hanh-cua-chinh-phu-thu-tuong-chinh-phu-noi-bat-thang-3-2026-va-chinh-sach-moi-cua-chinh-phu-co-hieu-luc-tu-thang-4-2026-10226040109432208.htm" target="_blank">Chỉ thị 10/CT-TTg có hiệu lực — Đẩy mạnh tiết kiệm điện &amp; phát triển ĐMTMN, BESS</a></div>
+        <div class="news-vn">Chỉ thị 10/CT-TTg (Thủ tướng Phạm Minh Chính, 30/3/2026) chính thức áp dụng trong tháng 4/2026: khuyến khích điện mặt trời mái nhà (ĐMTMN) + BESS các quy mô để điều tần, giảm áp lực hệ thống. Cơ hội lớn cho Horus Power triển khai hybrid solar+storage thương mại/công nghiệp ngay trong 2026.</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>16/04/2026</span><span class="src">Offshore Wind</span></div>
-        <div class="news-title"><a href="https://www.offshorewind.biz/2026/04/16/us-company-granted-offshore-wind-survey-licence-in-vietnam/" target="_blank">US company granted offshore wind survey licence in Vietnam</a></div>
-        <div class="news-vn">Pacifico Energy (Mỹ) được cấp phép khảo sát dự án điện gió ngoài khơi 500MW tại Bà Rịa – Vũng Tàu. Bước tiến quan trọng, là một trong những giấy phép khảo sát đầu tiên cấp cho nhà đầu tư nước ngoài.</div>
+        <div class="news-meta"><span>23/04/2026</span><span class="src">Tiền Phong</span></div>
+        <div class="news-title"><a href="https://tienphong.vn/canh-bao-nguy-co-mat-dien-nam-2026-post1785344.tpo" target="_blank">Cảnh báo nguy cơ mất điện miền Bắc mùa khô 2026 — EVN kích hoạt dự phòng</a></div>
+        <div class="news-vn">Phụ tải đỉnh hệ thống vượt 50,000 MW trong tháng 3/2026 (sớm hơn mọi năm). Bộ Công Thương chỉ đạo huy động tối đa NLTT, BESS và tăng nhập khẩu điện Lào/Trung Quốc. Tăng giá trị đàm phán PPA cho dự án sẵn sàng phát điện 2026–2027.</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>Q1/2026</span><span class="src">Invest Vietnam</span></div>
-        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">Circular 62 introduces breakthrough pricing framework for BESS</a></div>
-        <div class="news-vn">Thông tư 62 (1/2026) áp dụng cơ chế 2 nguồn thu cho BESS: công suất + năng lượng. EVN triển khai 1.2GW pilot. Mô hình value-stacking tăng khả năng bankable cho dự án lưu trữ.</div>
+        <div class="news-meta"><span>22/04/2026</span><span class="src">CafeF · VnExpress</span></div>
+        <div class="news-title"><a href="https://cafef.vn/dien-gio.html" target="_blank">Hà Tĩnh chọn VinEnergo 2 dự án điện gió Kỳ Anh $1.48 tỷ — áp lực cạnh tranh nội địa</a></div>
+        <div class="news-vn">UBND Hà Tĩnh chọn VinEnergo (Vingroup) làm nhà đầu tư 2 dự án điện gió Kỳ Anh, tổng vốn >39 nghìn tỷ. Pacifico Energy (Mỹ) cũng được cấp phép khảo sát 500MW offshore Bà Rịa–Vũng Tàu. Horus Power cần tăng tốc hồ sơ khảo sát và kích hoạt cơ chế Thông tư 62 cho solar+BESS hybrid.</div>
       </div>
     </div>
 
     <div class="card">
       <h2><span class="legend-dot" style="background:var(--asia)"></span>Châu Á</h2>
       <div class="news-item">
-        <div class="news-meta"><span>01/04/2026</span><span class="src">Reuters</span></div>
-        <div class="news-title"><a href="https://couleenergy.com/china-cancels-solar-module-export-tax-rebates-2026-solar-projects/" target="_blank">China cancels 9% VAT export rebate for solar products</a></div>
-        <div class="news-vn">Trung Quốc chính thức bỏ hoàn thuế VAT 9% cho wafers, cells, modules từ 01/04/2026. Giá module quốc tế dự báo tăng 10–15% trong 6 tháng tới.</div>
+        <div class="news-meta"><span>23/04/2026</span><span class="src">Bloomberg</span></div>
+        <div class="news-title"><a href="https://www.bloomberg.com/news/articles/2026-04-23/china-s-march-solar-panel-additions-slow-to-hit-four-year-low" target="_blank">Trung Quốc tháng 3/2026 chỉ thêm 8.91 GW solar — thấp nhất 4 năm</a></div>
+        <div class="news-vn">Lượng bổ sung solar Trung Quốc tháng 3/2026 giảm mạnh còn 8.91 GW (National Energy Administration), thấp nhất 4 năm — giá FOB module tăng áp lực. Horus Power nên khóa đơn hàng module H2/2026 sớm; cân nhắc nhập từ nhà sản xuất ASEAN để tránh phụ thuộc Trung Quốc.</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>Q1/2026</span><span class="src">pv magazine</span></div>
-        <div class="news-title"><a href="https://jmbipvtech.com/how-chinese-solar-module-prices-are-shifting-in-the-global-market/" target="_blank">Chinese PV module prices to hover around $0.12/W in H2 2026</a></div>
-        <div class="news-vn">pv magazine dự báo giá module TOPCon FOB Trung Quốc ổn định quanh $0.12/W nửa cuối 2026, tăng từ mức $0.09/W do chính sách VAT + chi phí bạc, polysilicon tăng.</div>
+        <div class="news-meta"><span>22/04/2026</span><span class="src">PV Tech · Ember</span></div>
+        <div class="news-title"><a href="https://www.pv-tech.org/chinese-solar-exports-hit-record-g8-gw-march-2026-ember/" target="_blank">Xuất khẩu solar Trung Quốc đạt kỷ lục 68 GW tháng 3/2026 (+141% sang Ấn Độ)</a></div>
+        <div class="news-vn">Ember: xuất khẩu module Trung Quốc đạt 68 GW tháng 3/2026 — kỷ lục mọi thời đại. Xuất sang Ấn Độ tăng 6.6 GW MoM (+141%), trong khi thị trường nội địa thu hẹp. Cơ hội giá FOB ổn định cho dự án Việt Nam 2026–2027, nhưng rủi ro bán phá giá khu vực.</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>2025–2026</span><span class="src">Rystad Energy</span></div>
-        <div class="news-title"><a href="https://www.rystadenergy.com/news/china-s-solar-capacity-surges-expected-to-top-1-tw-by-2026" target="_blank">China solar installed capacity tops 1 TW in 2026</a></div>
-        <div class="news-vn">Trung Quốc vượt mốc 1 TW công suất PV lắp đặt năm 2026, từ 900GW cuối 2025. Duy trì thị phần >80% năng lực sản xuất module toàn cầu.</div>
+        <div class="news-meta"><span>21/04/2026</span><span class="src">CNESA</span></div>
+        <div class="news-title"><a href="https://en.cnesa.org/latest-news?offset=1752206333175" target="_blank">Tỉnh Cát Lâm công bố Quy hoạch 5 năm lần XV — 70 GW gió+solar, BESS lớn</a></div>
+        <div class="news-vn">Cát Lâm (Jilin) công bố kế hoạch 2026–2030: 70 GW wind+solar, triển khai BESS quy mô lớn và đa dạng để tối ưu công suất, ổn định lưới. Sineng Electric vừa kết nối 300 MW / 1,200 MWh BESS chia sẻ tại Cam Túc — tín hiệu thị trường lưu trữ châu Á tăng trưởng mạnh.</div>
       </div>
     </div>
 
     <div class="card">
       <h2><span class="legend-dot" style="background:var(--global)"></span>Toàn cầu</h2>
       <div class="news-item">
-        <div class="news-meta"><span>Q1/2026</span><span class="src">BloombergNEF</span></div>
-        <div class="news-title"><a href="https://about.bnef.com/" target="_blank">Global clean energy investment hits $2.3T in 2025</a></div>
-        <div class="news-vn">Đầu tư sạch đạt kỷ lục $2.3 nghìn tỷ USD năm 2025, gấp đôi đầu tư nhiên liệu hóa thạch ($1.1T). Riêng solar đóng góp $450 tỷ USD.</div>
+        <div class="news-meta"><span>23/04/2026</span><span class="src">Canary Media · Clean Energy Wire</span></div>
+        <div class="news-title"><a href="https://www.canarymedia.com/articles/wind/world-offshore-wind-us-retreat" target="_blank">Bắc Hải công bố kế hoạch tham vọng: 120 GW offshore wind đến 2030</a></div>
+        <div class="news-vn">Các nước Bắc Hải (North Sea) tuyên bố mở rộng 7 lần tốc độ lắp đặt offshore wind để đạt 120 GW đến 2030 — tách khỏi cam kết hợp tác với Mỹ do Trump siết chính sách. Thị trường offshore wind châu Âu dự báo tăng từ $109 tỷ (2026) lên $307 tỷ (2035, CAGR 12.2%).</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>2025</span><span class="src">IEA</span></div>
-        <div class="news-title"><a href="https://www.iea.org/reports/renewables-2025" target="_blank">Renewables + nuclear to reach 50% of global electricity by 2030</a></div>
-        <div class="news-vn">IEA dự báo tỷ trọng NLTT + hạt nhân trong sản xuất điện toàn cầu đạt 50% vào 2030. 2025 đánh dấu kỷ lục 814GW bổ sung solar + wind.</div>
+        <div class="news-meta"><span>20/04/2026</span><span class="src">Van Oord · ORLEN</span></div>
+        <div class="news-title"><a href="https://www.cleanenergywire.org/news/north-sea-states-aim-worlds-largest-energy-hub-major-offshore-wind-investment-plan" target="_blank">Baltic Power (Ba Lan) hoàn tất lắp đặt toàn bộ monopile + transition piece</a></div>
+        <div class="news-vn">Dự án offshore wind đầu tiên của Ba Lan — Baltic Power (ORLEN + Northland Power) — hoàn tất lắp monopile + transition piece do Van Oord thực hiện. Mốc kỹ thuật quan trọng; offshore wind toàn cầu vượt 9 GW lắp mới trong 2025.</div>
       </div>
       <div class="news-item">
-        <div class="news-meta"><span>07/04/2026</span><span class="src">EU Commission</span></div>
-        <div class="news-title"><a href="https://cbamguide.com/tools/price-tracker/" target="_blank">Official CBAM Q1/2026 reference published at €75.36/tCO₂</a></div>
-        <div class="news-vn">Giá tham chiếu CBAM chính thức Q1/2026 €75.36/tCO₂ (công bố 07/04/2026). EUA giao dịch €75.51/t, cao nhất 7 tuần. Áp lực chi phí carbon lên thép, xi măng, nhôm xuất khẩu vào EU — cân nhắc cho chuỗi cung ứng Horus Power.</div>
+        <div class="news-meta"><span>07/04/2026</span><span class="src">EU Commission · IndexBox</span></div>
+        <div class="news-title"><a href="https://cbamguide.com/tools/price-tracker/" target="_blank">CBAM Q1/2026 chính thức €75.36/tCO₂; EUA giảm về €70.10/t</a></div>
+        <div class="news-vn">Giá CBAM Q1/2026 cố định €75.36/tCO₂. EUA spot điều chỉnh về €70.10/t (mid-April, giảm 7% từ đỉnh €75.5). Công bố CBAM tiếp theo: 06/07/2026. Giảm áp lực chi phí carbon ngắn hạn cho thép, nhôm, xi măng xuất khẩu EU.</div>
       </div>
     </div>
   </div>
@@ -999,19 +965,19 @@ Object.keys(backtrackData).forEach(key => {
     <div class="card">
       <h2>Quy định &amp; Văn bản mới</h2>
       <div class="news-item">
+        <div class="news-meta"><span>30/03/2026</span><span class="src">Báo Chính phủ · VOV</span></div>
+        <div class="news-title"><a href="https://baochinhphu.vn/chi-dao-dieu-hanh-cua-chinh-phu-thu-tuong-chinh-phu-noi-bat-thang-3-2026-va-chinh-sach-moi-cua-chinh-phu-co-hieu-luc-tu-thang-4-2026-10226040109432208.htm" target="_blank">Chỉ thị 10/CT-TTg — Tiết kiệm điện, phát triển ĐMTMN &amp; BESS (hiệu lực 4/2026)</a></div>
+        <div class="news-vn">Thủ tướng Phạm Minh Chính ký Chỉ thị 10/CT-TTg (30/3/2026): khuyến khích điện mặt trời mái nhà (ĐMTMN) + hệ thống BESS các quy mô để điều tần, giảm áp lực cung điện. Mở đường cho hybrid solar+storage quy mô thương mại/công nghiệp triển khai ngay 2026.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-meta"><span>19/03/2026</span><span class="src">Báo Chính phủ</span></div>
+        <div class="news-title"><a href="https://baochinhphu.vn/chinh-sach-uu-dai-phat-trien-dien-nang-luong-tai-tao-dien-nang-luong-moi-102250304172509197.htm" target="_blank">Chỉ thị 09/CT-TTg — Tiết kiệm năng lượng quyết liệt, giảm áp lực cung ứng</a></div>
+        <div class="news-vn">Thủ tướng ký Chỉ thị 09/CT-TTg (19/3/2026): triển khai toàn diện các biện pháp tiết kiệm năng lượng, coi tiết kiệm là giải pháp giảm áp lực cung cấp điện trong bối cảnh thị trường năng lượng toàn cầu biến động. Các bộ/ngành báo cáo định kỳ.</div>
+      </div>
+      <div class="news-item">
         <div class="news-meta"><span>01/2026</span><span class="src">Bộ Công Thương</span></div>
-        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">Circular 62 — BESS dual-revenue pricing framework</a></div>
-        <div class="news-vn">Thông tư 62 có hiệu lực tháng 1/2026. Cho phép dự án BESS hưởng hai nguồn doanh thu: công suất khả dụng + năng lượng thực cung cấp. Được đánh giá là bước tiến đột phá không chỉ cho Việt Nam mà cho cả ASEAN.</div>
-      </div>
-      <div class="news-item">
-        <div class="news-meta"><span>10/2025</span><span class="src">Bộ Công Thương</span></div>
-        <div class="news-title"><a href="https://www.nortonrosefulbright.com/en/knowledge/publications/1d041eb0/vietnam-power-sector-snapshot" target="_blank">Report 246/BC-BCT on revised PDP8 implementation 2026–2030</a></div>
-        <div class="news-vn">Bộ Công Thương trình báo cáo 246 kiến nghị Bộ Chính trị và Thủ tướng tháo gỡ khó khăn đẩy nhanh điện gió ngoài khơi. Dự thảo Nghị quyết Quốc hội cho cơ chế đặc thù đang được hoàn thiện.</div>
-      </div>
-      <div class="news-item">
-        <div class="news-meta"><span>2025</span><span class="src">Norton Rose</span></div>
-        <div class="news-title"><a href="https://www.nortonrosefulbright.com/en/knowledge/publications/1d041eb0/vietnam-power-sector-snapshot" target="_blank">DPPA mechanism expanded — direct PPA pilot scales up</a></div>
-        <div class="news-vn">Cơ chế mua bán điện trực tiếp (DPPA) giữa nhà sản xuất và khách hàng công nghiệp lớn đã mở rộng. Bước tiến then chốt giúp dự án NLTT có PPA bankable ngoài EVN.</div>
+        <div class="news-title"><a href="https://blog.investvietnam.co/the-state-of-wind-power-in-vietnam-in-2026/" target="_blank">Thông tư 62 — Cơ chế 2 nguồn thu cho BESS (công suất + năng lượng)</a></div>
+        <div class="news-vn">Thông tư 62 có hiệu lực tháng 1/2026: dự án BESS hưởng 2 nguồn doanh thu — công suất khả dụng + năng lượng thực cung cấp. Bước tiến đột phá không chỉ cho Việt Nam mà cho toàn ASEAN. Bộ CT cũng ban hành cơ chế ưu đãi cho nhà máy NLTT nhỏ áp dụng biểu giá tránh được.</div>
       </div>
     </div>
 
@@ -1916,23 +1882,4 @@ chartDetails.modulCostBreakdown = {
   'Nhôm (frame)': { tag: 'Nhôm · Frame', value: '12%', body: 'Nhôm LME $2,520/t. Frame module thường 2.0–2.5kg nhôm/module 400–600W.' },
   'Kính solar': { tag: 'Kính solar', value: '11%', body: 'Kính 3.2mm low-iron, giá $3.60/m². Tăng 9% YoY do nhu cầu mạnh và tồn kho thấp.' },
   'EVA + Backsheet': { tag: 'EVA + Backsheet', value: '12%', body: 'EVA film POE $1.85/kg (+11% YoY). Backsheet TPT $1.25/m². Áp lực từ nhựa POE và fluoropolymer.' },
-  'Junction box + khác': { tag: 'Junction box + khác', value: '5%', body: 'Junction box, connector, dây điện, vật liệu đóng gói, chi phí lao động & năng lượng.' }
-};
-
-// Wire click handlers + hints
-[
-  ['overviewMix', overviewMixChart],
-  ['vnMix', vnMixChart],
-  ['asiaCapacity', asiaCapacityChart],
-  ['globalMix', globalMixChart],
-  ['globalInvestment', globalInvestmentChart],
-  ['modulePrice', modulePriceChart],
-  ['modulCostBreakdown', modulCostBreakdownChart]
-].forEach(([key, chart]) => {
-  registerChartClicks(chart, key);
-  chart.update();
-  addChartHint(key);
-});
-</script>
-</body>
-<
+  'Junction box + khác': { tag: 'Junction box

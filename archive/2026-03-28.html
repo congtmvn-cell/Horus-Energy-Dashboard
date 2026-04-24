@@ -4,104 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bản tin Năng lượng — Horus Power — Tháng 4/2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-// ===== Backtrack sparklines =====
-const backtrackData = {"brent": {"values": [99.209, 99.9914, 100.1394, 99.9466, 100.3535], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "ttf": {"values": [55.3259, 54.937, 54.3079, 53.9307, 53.7472], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "\u20ac"}, "jkm": {"values": [20.7564, 20.6216, 20.4073, 20.2597, 20.0773], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "coal": {"values": [127.8311, 128.0579, 128.5582, 128.7151, 128.9699], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "module_pv": {"values": [0.0979, 0.0994, 0.1004, 0.1018, 0.1029], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "cell": {"values": [0.044, 0.0445, 0.045, 0.0455, 0.0461], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "wafer": {"values": [0.145, 0.1462, 0.1473, 0.1489, 0.1498], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "silver": {"values": [68.9539, 69.1466, 69.9014, 69.7528, 70.4803], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "polysilicon": {"values": [4.7517, 4.7296, 4.7143, 4.6869, 4.6823], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "\u20ac"}, "aluminum": {"values": [3415.879, 3430.6749, 3438.1616, 3448.5129, 3444.5787], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "copper": {"values": [12848.0394, 12887.1648, 12912.8802, 12897.2837, 12911.9939], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "solar_glass": {"values": [3.5235, 3.5186, 3.5214, 3.5297, 3.5248], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "lithium": {"values": [21791.695, 21910.4721, 22074.6611, 22093.9269, 22201.3926], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "cobalt": {"values": [29430.4087, 29501.333, 29457.883, 29474.2208, 29321.7458], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "nickel": {"values": [17841.4066, 17742.7778, 17793.3845, 17728.2546, 17787.9776], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "steel": {"values": [615.0406, 615.7384, 616.1949, 615.1288, 616.1812], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "rare_earth": {"values": [73716.9632, 74281.5486, 74128.4034, 74144.0636, 74542.3443], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "lfp_pack": {"values": [89.4752, 89.4448, 89.3817, 89.3353, 89.2769], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 1, "prefix": "$"}};
-const backtrackDates = ["2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28"];
-const backtrackLabels = backtrackDates.map(d => d.slice(8,10) + '/' + d.slice(5,7));
-function fmtBT(v, decimals, prefix) {
-  if (decimals === 0) return prefix + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
-  return prefix + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-}
-Object.keys(backtrackData).forEach(key => {
-  const cfg = backtrackData[key];
-  const values = cfg.values || [];
-  if (!values.length) return;
-  const first = values[0], last = values[values.length - 1];
-  const mn = Math.min.apply(null, values), mx = Math.max.apply(null, values);
-  const pct = first ? (last - first) / first * 100 : 0;
-  // Populate header fields
-  const sv = document.getElementById('sv_' + key);
-  if (sv) sv.textContent = fmtBT(last, cfg.decimals, cfg.prefix);
-  const sd = document.getElementById('sd_' + key);
-  if (sd) {
-    const cls = pct > 0.5 ? 'up' : pct < -0.5 ? 'down' : 'flat';
-    sd.className = 'spark-delta ' + cls;
-    const sign = pct >= 0 ? '+' : '';
-    sd.textContent = sign + pct.toFixed(1) + '%';
-  }
-  const smin = document.getElementById('smin_' + key);
-  if (smin) smin.textContent = '▾ ' + fmtBT(mn, cfg.decimals, cfg.prefix);
-  const smax = document.getElementById('smax_' + key);
-  if (smax) smax.textContent = '▴ ' + fmtBT(mx, cfg.decimals, cfg.prefix);
-  // Render chart
-  const ctx = document.getElementById('sk_' + key);
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: backtrackLabels,
-      datasets: [{
-        data: values, borderColor: cfg.color, backgroundColor: cfg.accent,
-        borderWidth: 2, fill: true, tension: 0.3,
-        pointRadius: 0, pointHoverRadius: 5,
-        pointHoverBackgroundColor: cfg.color, pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#0a1429', borderColor: cfg.color, borderWidth: 1,
-          titleColor: '#fff', bodyColor: '#e6ecf5', padding: 8, displayColors: false,
-          callbacks: {
-            title: (ctx) => backtrackDates[ctx[0].dataIndex].split('-').reverse().join('/'),
-            label: (ctx) => fmtBT(ctx.raw, cfg.decimals, cfg.prefix)
-          }
-        }
-      },
-      scales: { x: { display: false }, y: { display: false, grace: '5%' } }
-    }
-  });
-});
-  return prefix + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-}
-Object.keys(backtrackData).forEach(key => {
-  const cfg = backtrackData[key];
-  const ctx = document.getElementById('sk_' + key);
-  if (!ctx) return;
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: backtrackLabels,
-      datasets: [{
-        data: cfg.values, borderColor: cfg.color, backgroundColor: cfg.accent,
-        borderWidth: 2, fill: true, tension: 0.3,
-        pointRadius: 0, pointHoverRadius: 5,
-        pointHoverBackgroundColor: cfg.color, pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#0a1429', borderColor: cfg.color, borderWidth: 1,
-          titleColor: '#fff', bodyColor: '#e6ecf5', padding: 8, displayColors: false,
-          callbacks: {
-            title: (ctx) => backtrackDates[ctx[0].dataIndex].split('-').reverse().join('/'),
-            label: (ctx) => fmtBT(ctx.raw, cfg.decimals, cfg.prefix)
-          }
-        }
-      },
-      scales: { x: { display: false }, y: { display: false, grace: '5%' } }
-    }
-  });
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
     --bg: #0a1429;
@@ -802,38 +705,38 @@ Object.keys(backtrackData).forEach(key => {
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Brent Crude</div><div class="spark-unit">$/bbl</div></div>
-        <span class="spark-delta flat" id="sd_brent">—</span>
+        <span class="spark-delta up">+1.2%</span>
       </div>
-      <div class="spark-value" id="sv_brent">—</div>
+      <div class="spark-value">$100.35</div>
       <div class="spark-chart"><canvas id="sk_brent"></canvas></div>
-      <div class="spark-range"><span id="smin_brent">—</span><span id="smax_brent">—</span></div>
+      <div class="spark-range"><span>▾ $99.21</span><span>▴ $100.35</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">TTF Gas (EU)</div><div class="spark-unit">€/MWh</div></div>
-        <span class="spark-delta flat" id="sd_ttf">—</span>
+        <span class="spark-delta down">-2.9%</span>
       </div>
-      <div class="spark-value" id="sv_ttf">—</div>
+      <div class="spark-value">€53.75</div>
       <div class="spark-chart"><canvas id="sk_ttf"></canvas></div>
-      <div class="spark-range"><span id="smin_ttf">—</span><span id="smax_ttf">—</span></div>
+      <div class="spark-range"><span>▾ €53.75</span><span>▴ €55.33</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">JKM LNG (Asia)</div><div class="spark-unit">$/MMBtu</div></div>
-        <span class="spark-delta flat" id="sd_jkm">—</span>
+        <span class="spark-delta down">-3.3%</span>
       </div>
-      <div class="spark-value" id="sv_jkm">—</div>
+      <div class="spark-value">$20.08</div>
       <div class="spark-chart"><canvas id="sk_jkm"></canvas></div>
-      <div class="spark-range"><span id="smin_jkm">—</span><span id="smax_jkm">—</span></div>
+      <div class="spark-range"><span>▾ $20.08</span><span>▴ $20.76</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Newcastle Coal</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_coal">—</span>
+        <span class="spark-delta up">+0.9%</span>
       </div>
-      <div class="spark-value" id="sv_coal">—</div>
+      <div class="spark-value">$128.97</div>
       <div class="spark-chart"><canvas id="sk_coal"></canvas></div>
-      <div class="spark-range"><span id="smin_coal">—</span><span id="smax_coal">—</span></div>
+      <div class="spark-range"><span>▾ $127.83</span><span>▴ $128.97</span></div>
     </div>
   </div>
 
@@ -842,29 +745,29 @@ Object.keys(backtrackData).forEach(key => {
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Module PV TOPCon</div><div class="spark-unit">$/W</div></div>
-        <span class="spark-delta flat" id="sd_module_pv">—</span>
+        <span class="spark-delta up">+5.1%</span>
       </div>
-      <div class="spark-value" id="sv_module_pv">—</div>
+      <div class="spark-value">$0.103</div>
       <div class="spark-chart"><canvas id="sk_module_pv"></canvas></div>
-      <div class="spark-range"><span id="smin_module_pv">—</span><span id="smax_module_pv">—</span></div>
+      <div class="spark-range"><span>▾ $0.098</span><span>▴ $0.103</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Cell TOPCon 182mm</div><div class="spark-unit">$/W</div></div>
-        <span class="spark-delta flat" id="sd_cell">—</span>
+        <span class="spark-delta up">+4.8%</span>
       </div>
-      <div class="spark-value" id="sv_cell">—</div>
+      <div class="spark-value">$0.046</div>
       <div class="spark-chart"><canvas id="sk_cell"></canvas></div>
-      <div class="spark-range"><span id="smin_cell">—</span><span id="smax_cell">—</span></div>
+      <div class="spark-range"><span>▾ $0.044</span><span>▴ $0.046</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Wafer N-type 182mm</div><div class="spark-unit">$/pc</div></div>
-        <span class="spark-delta flat" id="sd_wafer">—</span>
+        <span class="spark-delta up">+3.3%</span>
       </div>
-      <div class="spark-value" id="sv_wafer">—</div>
+      <div class="spark-value">$0.150</div>
       <div class="spark-chart"><canvas id="sk_wafer"></canvas></div>
-      <div class="spark-range"><span id="smin_wafer">—</span><span id="smax_wafer">—</span></div>
+      <div class="spark-range"><span>▾ $0.145</span><span>▴ $0.150</span></div>
     </div>
   </div>
 
@@ -873,47 +776,47 @@ Object.keys(backtrackData).forEach(key => {
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Bạc (Silver)</div><div class="spark-unit">$/oz</div></div>
-        <span class="spark-delta flat" id="sd_silver">—</span>
+        <span class="spark-delta up">+2.2%</span>
       </div>
-      <div class="spark-value" id="sv_silver">—</div>
+      <div class="spark-value">$70.48</div>
       <div class="spark-chart"><canvas id="sk_silver"></canvas></div>
-      <div class="spark-range"><span id="smin_silver">—</span><span id="smax_silver">—</span></div>
+      <div class="spark-range"><span>▾ $68.95</span><span>▴ $70.48</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Polysilicon N-type</div><div class="spark-unit">€/kg</div></div>
-        <span class="spark-delta flat" id="sd_polysilicon">—</span>
+        <span class="spark-delta down">-1.5%</span>
       </div>
-      <div class="spark-value" id="sv_polysilicon">—</div>
+      <div class="spark-value">€4.68</div>
       <div class="spark-chart"><canvas id="sk_polysilicon"></canvas></div>
-      <div class="spark-range"><span id="smin_polysilicon">—</span><span id="smax_polysilicon">—</span></div>
+      <div class="spark-range"><span>▾ €4.68</span><span>▴ €4.75</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Nhôm (LME)</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_aluminum">—</span>
+        <span class="spark-delta up">+0.8%</span>
       </div>
-      <div class="spark-value" id="sv_aluminum">—</div>
+      <div class="spark-value">$3,445</div>
       <div class="spark-chart"><canvas id="sk_aluminum"></canvas></div>
-      <div class="spark-range"><span id="smin_aluminum">—</span><span id="smax_aluminum">—</span></div>
+      <div class="spark-range"><span>▾ $3,416</span><span>▴ $3,449</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Đồng (LME)</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_copper">—</span>
+        <span class="spark-delta flat">+0.5%</span>
       </div>
-      <div class="spark-value" id="sv_copper">—</div>
+      <div class="spark-value">$12,912</div>
       <div class="spark-chart"><canvas id="sk_copper"></canvas></div>
-      <div class="spark-range"><span id="smin_copper">—</span><span id="smax_copper">—</span></div>
+      <div class="spark-range"><span>▾ $12,848</span><span>▴ $12,913</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Kính solar 3.2mm</div><div class="spark-unit">$/m²</div></div>
-        <span class="spark-delta flat" id="sd_solar_glass">—</span>
+        <span class="spark-delta flat">+0.0%</span>
       </div>
-      <div class="spark-value" id="sv_solar_glass">—</div>
+      <div class="spark-value">$3.52</div>
       <div class="spark-chart"><canvas id="sk_solar_glass"></canvas></div>
-      <div class="spark-range"><span id="smin_solar_glass">—</span><span id="smax_solar_glass">—</span></div>
+      <div class="spark-range"><span>▾ $3.52</span><span>▴ $3.53</span></div>
     </div>
   </div>
 
@@ -922,60 +825,58 @@ Object.keys(backtrackData).forEach(key => {
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Lithium carbonate</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_lithium">—</span>
+        <span class="spark-delta up">+1.9%</span>
       </div>
-      <div class="spark-value" id="sv_lithium">—</div>
+      <div class="spark-value">$22,201</div>
       <div class="spark-chart"><canvas id="sk_lithium"></canvas></div>
-      <div class="spark-range"><span id="smin_lithium">—</span><span id="smax_lithium">—</span></div>
+      <div class="spark-range"><span>▾ $21,792</span><span>▴ $22,201</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Cobalt (LME)</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_cobalt">—</span>
+        <span class="spark-delta flat">-0.4%</span>
       </div>
-      <div class="spark-value" id="sv_cobalt">—</div>
+      <div class="spark-value">$29,322</div>
       <div class="spark-chart"><canvas id="sk_cobalt"></canvas></div>
-      <div class="spark-range"><span id="smin_cobalt">—</span><span id="smax_cobalt">—</span></div>
+      <div class="spark-range"><span>▾ $29,322</span><span>▴ $29,501</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Nickel (LME)</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_nickel">—</span>
+        <span class="spark-delta flat">-0.3%</span>
       </div>
-      <div class="spark-value" id="sv_nickel">—</div>
+      <div class="spark-value">$17,788</div>
       <div class="spark-chart"><canvas id="sk_nickel"></canvas></div>
-      <div class="spark-range"><span id="smin_nickel">—</span><span id="smax_nickel">—</span></div>
+      <div class="spark-range"><span>▾ $17,728</span><span>▴ $17,841</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Thép (Steel HRC)</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_steel">—</span>
+        <span class="spark-delta flat">+0.2%</span>
       </div>
-      <div class="spark-value" id="sv_steel">—</div>
+      <div class="spark-value">$616</div>
       <div class="spark-chart"><canvas id="sk_steel"></canvas></div>
-      <div class="spark-range"><span id="smin_steel">—</span><span id="smax_steel">—</span></div>
+      <div class="spark-range"><span>▾ $615</span><span>▴ $616</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">Đất hiếm NdPr</div><div class="spark-unit">$/t</div></div>
-        <span class="spark-delta flat" id="sd_rare_earth">—</span>
+        <span class="spark-delta up">+1.1%</span>
       </div>
-      <div class="spark-value" id="sv_rare_earth">—</div>
+      <div class="spark-value">$74,542</div>
       <div class="spark-chart"><canvas id="sk_rare_earth"></canvas></div>
-      <div class="spark-range"><span id="smin_rare_earth">—</span><span id="smax_rare_earth">—</span></div>
+      <div class="spark-range"><span>▾ $73,717</span><span>▴ $74,542</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
         <div><div class="spark-name">LFP Battery Pack</div><div class="spark-unit">$/kWh</div></div>
-        <span class="spark-delta flat" id="sd_lfp_pack">—</span>
+        <span class="spark-delta flat">-0.2%</span>
       </div>
-      <div class="spark-value" id="sv_lfp_pack">—</div>
+      <div class="spark-value">$89.3</div>
       <div class="spark-chart"><canvas id="sk_lfp_pack"></canvas></div>
-      <div class="spark-range"><span id="smin_lfp_pack">—</span><span id="smax_lfp_pack">—</span></div>
+      <div class="spark-range"><span>▾ $89.3</span><span>▴ $89.5</span></div>
     </div>
   </div>
-  </div>
-</section>
 
 <!-- ============ VIỆT NAM ============ -->
 <section id="viet-nam" class="tab-pane">
@@ -1937,6 +1838,49 @@ chartDetails.modulCostBreakdown = {
   registerChartClicks(chart, key);
   chart.update();
   addChartHint(key);
+});
+
+// ===== Backtrack sparklines =====
+const backtrackData = {"brent": {"values": [99.209, 99.9914, 100.1394, 99.9466, 100.3535], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "ttf": {"values": [55.3259, 54.937, 54.3079, 53.9307, 53.7472], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "€"}, "jkm": {"values": [20.7564, 20.6216, 20.4073, 20.2597, 20.0773], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "coal": {"values": [127.8311, 128.0579, 128.5582, 128.7151, 128.9699], "color": "#f6ad55", "accent": "rgba(246,173,85,0.12)", "decimals": 2, "prefix": "$"}, "module_pv": {"values": [0.0979, 0.0994, 0.1004, 0.1018, 0.1029], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "cell": {"values": [0.044, 0.0445, 0.045, 0.0455, 0.0461], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "wafer": {"values": [0.145, 0.1462, 0.1473, 0.1489, 0.1498], "color": "#3BA3DB", "accent": "rgba(59,163,219,0.12)", "decimals": 3, "prefix": "$"}, "silver": {"values": [68.9539, 69.1466, 69.9014, 69.7528, 70.4803], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "polysilicon": {"values": [4.7517, 4.7296, 4.7143, 4.6869, 4.6823], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "€"}, "aluminum": {"values": [3415.879, 3430.6749, 3438.1616, 3448.5129, 3444.5787], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "copper": {"values": [12848.0394, 12887.1648, 12912.8802, 12897.2837, 12911.9939], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 0, "prefix": "$"}, "solar_glass": {"values": [3.5235, 3.5186, 3.5214, 3.5297, 3.5248], "color": "#fbd38d", "accent": "rgba(251,211,141,0.1)", "decimals": 2, "prefix": "$"}, "lithium": {"values": [21791.695, 21910.4721, 22074.6611, 22093.9269, 22201.3926], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "cobalt": {"values": [29430.4087, 29501.333, 29457.883, 29474.2208, 29321.7458], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "nickel": {"values": [17841.4066, 17742.7778, 17793.3845, 17728.2546, 17787.9776], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "steel": {"values": [615.0406, 615.7384, 616.1949, 615.1288, 616.1812], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "rare_earth": {"values": [73716.9632, 74281.5486, 74128.4034, 74144.0636, 74542.3443], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 0, "prefix": "$"}, "lfp_pack": {"values": [89.4752, 89.4448, 89.3817, 89.3353, 89.2769], "color": "#68d391", "accent": "rgba(104,211,145,0.12)", "decimals": 1, "prefix": "$"}};
+const backtrackDates = ["2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28"];
+const backtrackLabels = backtrackDates.map(d => d.slice(8,10) + '/' + d.slice(5,7));
+function fmtBT(v, decimals, prefix) {
+  if (decimals === 0) return prefix + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  return prefix + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+Object.keys(backtrackData).forEach(key => {
+  const cfg = backtrackData[key];
+  if (!cfg.values || !cfg.values.length) return;
+  const ctx = document.getElementById('sk_' + key);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: backtrackLabels,
+      datasets: [{
+        data: cfg.values, borderColor: cfg.color, backgroundColor: cfg.accent,
+        borderWidth: 2, fill: true, tension: 0.3,
+        pointRadius: 0, pointHoverRadius: 5,
+        pointHoverBackgroundColor: cfg.color, pointHoverBorderColor: '#fff', pointHoverBorderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0a1429', borderColor: cfg.color, borderWidth: 1,
+          titleColor: '#fff', bodyColor: '#e6ecf5', padding: 8, displayColors: false,
+          callbacks: {
+            title: (ctx) => backtrackDates[ctx[0].dataIndex].split('-').reverse().join('/'),
+            label: (ctx) => fmtBT(ctx.raw, cfg.decimals, cfg.prefix)
+          }
+        }
+      },
+      scales: { x: { display: false }, y: { display: false, grace: '5%' } }
+    }
+  });
 });
 </script>
 </body>

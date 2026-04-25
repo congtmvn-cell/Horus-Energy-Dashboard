@@ -483,6 +483,18 @@
     color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 4px;
     border-top: 1px solid var(--border);
   }
+
+  .spark-pv-share {
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    font-size: 10px; color: var(--accent);
+    background: rgba(59,163,219,0.08);
+    border: 1px dashed rgba(59,163,219,0.3);
+    padding: 4px 8px; border-radius: 6px;
+    margin-top: 6px; font-weight: 600; letter-spacing: 0.2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .spark-pv-share .pct { font-weight: 800; color: var(--accent-2); }
+  .spark-pv-share .lbl { color: var(--muted); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -713,6 +725,7 @@
       <div class="spark-value">$0.119</div>
       <div class="spark-chart"><canvas id="sk_module_pv"></canvas></div>
       <div class="spark-range"><span>▾ $0.103</span><span>▴ $0.121</span></div>
+      <div class="spark-pv-share" title="Final module price per W"><span class="lbl">% giá 1W PV:</span><span class="pct">100%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -722,6 +735,7 @@
       <div class="spark-value">$0.053</div>
       <div class="spark-chart"><canvas id="sk_cell"></canvas></div>
       <div class="spark-range"><span>▾ $0.046</span><span>▴ $0.054</span></div>
+      <div class="spark-pv-share" title="Cell price = wafer + silver + processing"><span class="lbl">% giá 1W PV:</span><span class="pct">~40%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -731,6 +745,7 @@
       <div class="spark-value">$0.165</div>
       <div class="spark-chart"><canvas id="sk_wafer"></canvas></div>
       <div class="spark-range"><span>▾ $0.150</span><span>▴ $0.165</span></div>
+      <div class="spark-pv-share" title="Wafer price = poly + wafer-making"><span class="lbl">% giá 1W PV:</span><span class="pct">~25%</span></div>
     </div>
   </div>
 
@@ -744,6 +759,7 @@
       <div class="spark-value">$78.20</div>
       <div class="spark-chart"><canvas id="sk_silver"></canvas></div>
       <div class="spark-range"><span>▾ $70.48</span><span>▴ $78.50</span></div>
+      <div class="spark-pv-share" title="Silver paste (cell metallization)"><span class="lbl">% giá 1W PV:</span><span class="pct">~10%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -753,6 +769,7 @@
       <div class="spark-value">$5.36</div>
       <div class="spark-chart"><canvas id="sk_polysilicon"></canvas></div>
       <div class="spark-range"><span>▾ $5.32</span><span>▴ $5.85</span></div>
+      <div class="spark-pv-share" title="Polysilicon feedstock (wafer raw)"><span class="lbl">% giá 1W PV:</span><span class="pct">~15%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -762,6 +779,7 @@
       <div class="spark-value">$3,550</div>
       <div class="spark-chart"><canvas id="sk_aluminum"></canvas></div>
       <div class="spark-range"><span>▾ $3,445</span><span>▴ $3,630</span></div>
+      <div class="spark-pv-share" title="Frame alloy (module border)"><span class="lbl">% giá 1W PV:</span><span class="pct">~12%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -771,6 +789,7 @@
       <div class="spark-value">$13,260</div>
       <div class="spark-chart"><canvas id="sk_copper"></canvas></div>
       <div class="spark-range"><span>▾ $12,912</span><span>▴ $13,260</span></div>
+      <div class="spark-pv-share" title="Cell interconnect + ribbon"><span class="lbl">% giá 1W PV:</span><span class="pct">~3%</span></div>
     </div>
     <div class="spark-card">
       <div class="spark-head">
@@ -780,6 +799,7 @@
       <div class="spark-value">$3.60</div>
       <div class="spark-chart"><canvas id="sk_solar_glass"></canvas></div>
       <div class="spark-range"><span>▾ $3.52</span><span>▴ $3.60</span></div>
+      <div class="spark-pv-share" title="Front cover glass 3.2mm"><span class="lbl">% giá 1W PV:</span><span class="pct">~10%</span></div>
     </div>
   </div>
 
